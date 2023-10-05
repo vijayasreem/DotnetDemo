@@ -2,130 +2,111 @@
 using System.Collections.Generic;
 using System.Threading.Tasks;
 
-public enum FileType
+namespace ReportSchedulingTool
 {
-    PDF,
-    CSV,
-    Excel,
-    Custom
-}
-
-public enum DestinationType
-{
-    Email,
-    CloudStorage,
-    InternalServer
-}
-
-public interface IReportDeliveryConfiguration
-{
-    DestinationType DestinationType { get; set; }
-    string DestinationAddress { get; set; }
-}
-
-public class ReportDeliveryConfiguration : IReportDeliveryConfiguration
-{
-    public DestinationType DestinationType { get; set; }
-    public string DestinationAddress { get; set; }
-
-    public bool ValidateDestination()
+    public enum FileType
     {
-        switch (DestinationType)
+        PDF,
+        CSV,
+        Excel,
+        Custom
+    }
+
+    public enum DestinationType
+    {
+        Email,
+        CloudStorage,
+        InternalServer
+    }
+
+    public class ReportDeliveryConfiguration
+    {
+        public DestinationType DestinationType { get; set; }
+        public string DestinationAddress { get; set; }
+
+        public bool ValidateDestination()
         {
-            case DestinationType.Email:
-                return !string.IsNullOrEmpty(DestinationAddress) && IsValidEmail(DestinationAddress);
-            case DestinationType.CloudStorage:
-                return !string.IsNullOrEmpty(DestinationAddress);
-            case DestinationType.InternalServer:
-                return !string.IsNullOrEmpty(DestinationAddress);
-            default:
-                return false;
+            // Validate the DestinationAddress based on the selected DestinationType
+            // Add your validation logic here
+            return true; // Return true if validation is successful, otherwise false
         }
     }
 
-    private bool IsValidEmail(string email)
+    public interface IReportGenerator
     {
-        // Implement email validation logic here
-        return true;
+        Task GenerateReport(FileType fileType, ReportDeliveryConfiguration deliveryConfiguration);
     }
 
-    public bool ValidateDeliveryConfiguration()
+    public class ReportGenerator : IReportGenerator
     {
-        // Implement logic to validate FrequencyType, DayOfWeek, DayOfMonth, and DeliveryTime
-        return true;
-    }
-}
-
-public class ReportGenerator
-{
-    public async Task GenerateReport(FileType fileType)
-    {
-        switch (fileType)
+        public async Task GenerateReport(FileType fileType, ReportDeliveryConfiguration deliveryConfiguration)
         {
-            case FileType.PDF:
-                await GeneratePDFReport();
-                break;
-            case FileType.CSV:
-                await GenerateCSVReport();
-                break;
-            case FileType.Excel:
-                await GenerateExcelReport();
-                break;
-            case FileType.Custom:
-                await GenerateCustomReport();
-                break;
-            default:
-                throw new ArgumentException("Invalid file type");
+            switch (fileType)
+            {
+                case FileType.PDF:
+                    // Logic for generating PDF report
+                    break;
+                case FileType.CSV:
+                    // Logic for generating CSV report
+                    break;
+                case FileType.Excel:
+                    // Logic for generating Excel report
+                    break;
+                case FileType.Custom:
+                    // Prompt user to specify the custom format for the report
+                    string customFormat = await GetCustomFormatFromUser();
+                    // Logic for generating custom format report
+                    break;
+                default:
+                    throw new ArgumentOutOfRangeException(nameof(fileType), fileType, null);
+            }
+        }
+
+        private Task<string> GetCustomFormatFromUser()
+        {
+            // Implement logic to prompt user for custom format input
+            return Task.FromResult(""); // Replace with actual user input
         }
     }
 
-    private async Task GeneratePDFReport()
+    public class ReportScheduler
     {
-        // Implement logic to generate PDF report
-        await Task.Delay(1000);
-        Console.WriteLine("PDF report generated");
-    }
+        private IReportGenerator reportGenerator;
 
-    private async Task GenerateCSVReport()
-    {
-        // Implement logic to generate CSV report
-        await Task.Delay(1000);
-        Console.WriteLine("CSV report generated");
-    }
-
-    private async Task GenerateExcelReport()
-    {
-        // Implement logic to generate Excel report
-        await Task.Delay(1000);
-        Console.WriteLine("Excel report generated");
-    }
-
-    private async Task GenerateCustomReport()
-    {
-        // Implement logic to generate custom report
-        await Task.Delay(1000);
-        Console.WriteLine("Custom report generated");
-    }
-}
-
-public class Program
-{
-    public static async Task Main()
-    {
-        var reportGenerator = new ReportGenerator();
-        var reportDeliveryConfiguration = new ReportDeliveryConfiguration()
+        public ReportScheduler(IReportGenerator reportGenerator)
         {
-            DestinationType = DestinationType.Email,
-            DestinationAddress = "example@example.com"
-        };
-
-        if (!reportDeliveryConfiguration.ValidateDestination())
-        {
-            Console.WriteLine("Invalid destination configuration");
-            return;
+            this.reportGenerator = reportGenerator;
         }
 
-        var fileType = FileType.PDF;
-        await reportGenerator.GenerateReport(fileType);
+        public async Task ScheduleReports()
+        {
+            // Logic for scheduling reports
+            FileType fileType = await GetFileTypeFromUser();
+            ReportDeliveryConfiguration deliveryConfiguration = await GetDeliveryConfigurationFromUser();
+
+            await reportGenerator.GenerateReport(fileType, deliveryConfiguration);
+        }
+
+        private Task<FileType> GetFileTypeFromUser()
+        {
+            // Implement logic to prompt user for file type selection
+            return Task.FromResult(FileType.PDF); // Replace with actual user input
+        }
+
+        private Task<ReportDeliveryConfiguration> GetDeliveryConfigurationFromUser()
+        {
+            // Implement logic to prompt user for delivery configuration
+            return Task.FromResult(new ReportDeliveryConfiguration()); // Replace with actual user input
+        }
+    }
+
+    public class Program
+    {
+        public static async Task Main(string[] args)
+        {
+            IReportGenerator reportGenerator = new ReportGenerator();
+            ReportScheduler reportScheduler = new ReportScheduler(reportGenerator);
+            await reportScheduler.ScheduleReports();
+        }
     }
 }

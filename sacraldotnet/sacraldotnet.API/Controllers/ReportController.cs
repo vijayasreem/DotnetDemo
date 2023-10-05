@@ -5,52 +5,56 @@ using sacraldotnet.Service;
 
 namespace sacraldotnet.API
 {
-    [ApiController]
     [Route("api/[controller]")]
+    [ApiController]
     public class ReportController : ControllerBase
     {
         private readonly IReportGenerator _reportGenerator;
-        private readonly IReportDeliveryConfiguration _reportDeliveryConfiguration;
+        private readonly IReportScheduler _reportScheduler;
+        private readonly IReportDeliveryConfigurationValidation _deliveryConfigValidation;
 
-        public ReportController(IReportGenerator reportGenerator, IReportDeliveryConfiguration reportDeliveryConfiguration)
+        public ReportController(IReportGenerator reportGenerator, IReportScheduler reportScheduler, IReportDeliveryConfigurationValidation deliveryConfigValidation)
         {
             _reportGenerator = reportGenerator;
-            _reportDeliveryConfiguration = reportDeliveryConfiguration;
+            _reportScheduler = reportScheduler;
+            _deliveryConfigValidation = deliveryConfigValidation;
         }
 
-        [HttpPost]
-        public async Task<IActionResult> GenerateReport([FromBody] FileType fileType)
+        [HttpPost("GenerateReport")]
+        public async Task<IActionResult> GenerateReport([FromBody] ReportRequestDTO request)
         {
+            if (!_deliveryConfigValidation.ValidateDestination(request.DeliveryConfiguration))
+            {
+                return BadRequest("Invalid delivery configuration");
+            }
+
             try
             {
-                await _reportGenerator.GenerateReport(fileType);
+                await _reportGenerator.GenerateReport(request.FileType, request.DeliveryConfiguration);
 
-                // Return success message
-                return Ok("Report generated successfully.");
+                return Ok("Report generated successfully");
             }
             catch (Exception ex)
             {
-                // Log the exception
-                // Return error message
-                return StatusCode(StatusCodes.Status500InternalServerError, "An error occurred while generating the report.");
+                // Handle exception and return appropriate error response
+                return StatusCode(500, ex.Message);
             }
         }
 
-        [HttpPost("delivery-configuration")]
-        public IActionResult ValidateDeliveryConfiguration([FromBody] ReportDeliveryConfiguration deliveryConfiguration)
+        [HttpPost("ScheduleReports")]
+        public async Task<IActionResult> ScheduleReports()
         {
-            if (!deliveryConfiguration.ValidateDestination())
+            try
             {
-                return BadRequest("Invalid destination address.");
-            }
+                await _reportScheduler.ScheduleReports();
 
-            if (!deliveryConfiguration.ValidateDeliveryConfiguration())
+                return Ok("Reports scheduled successfully");
+            }
+            catch (Exception ex)
             {
-                return BadRequest("Invalid delivery configuration.");
+                // Handle exception and return appropriate error response
+                return StatusCode(500, ex.Message);
             }
-
-            // Return success message
-            return Ok("Delivery configuration validated successfully.");
         }
     }
 }

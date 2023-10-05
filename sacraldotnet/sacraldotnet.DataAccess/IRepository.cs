@@ -5,12 +5,17 @@ using sacraldotnet.DTO;
 
 namespace sacraldotnet.Service
 {
-    public interface IService<T>
+    public interface IRepository<TEntity> where TEntity : class
     {
-        Task<List<T>> GetAllAsync();
-        Task<T> GetByIdAsync(int id);
-        Task<int> CreateAsync(T entity);
-        Task<int> UpdateAsync(T entity);
+        Task<TEntity> GetByIdAsync(int id);
+        Task<IEnumerable<TEntity>> GetAllAsync();
+        Task<int> InsertAsync(TEntity entity);
+        Task<int> UpdateAsync(TEntity entity);
         Task<int> DeleteAsync(int id);
+    }
+
+    public interface IReportRepository : IRepository<Report>
+    {
+        // Declare additional report-related CRUD operations as needed
     }
 }

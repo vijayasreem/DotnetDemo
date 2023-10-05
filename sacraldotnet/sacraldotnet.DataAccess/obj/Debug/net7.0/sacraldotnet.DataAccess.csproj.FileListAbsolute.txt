@@ -24,3 +24,11 @@ E:\Projects\Sacral\dotnet_service\Application.API\SacralAI.Code.Scheduler\bin\De
 E:\Projects\Sacral\dotnet_service\Application.API\SacralAI.Code.Scheduler\bin\Debug\Apps\1\1702\202310050158\sacraldotnet\sacraldotnet.DataAccess\obj\Debug\net7.0\sacraldotnet.DataAccess.dll
 E:\Projects\Sacral\dotnet_service\Application.API\SacralAI.Code.Scheduler\bin\Debug\Apps\1\1702\202310050158\sacraldotnet\sacraldotnet.DataAccess\obj\Debug\net7.0\refint\sacraldotnet.DataAccess.dll
 E:\Projects\Sacral\dotnet_service\Application.API\SacralAI.Code.Scheduler\bin\Debug\Apps\1\1702\202310050158\sacraldotnet\sacraldotnet.DataAccess\obj\Debug\net7.0\sacraldotnet.DataAccess.pdb
+E:\Projects\Sacral\dotnet_service\Application.API\SacralAI.Code.Scheduler\bin\Debug\Apps\1\1700\202310050927\sacraldotnet\sacraldotnet.DataAccess\obj\Debug\net7.0\sacraldotnet.DataAccess.csproj.AssemblyReference.cache
+E:\Projects\Sacral\dotnet_service\Application.API\SacralAI.Code.Scheduler\bin\Debug\Apps\1\1700\202310050927\sacraldotnet\sacraldotnet.DataAccess\obj\Debug\net7.0\sacraldotnet.DataAccess.GeneratedMSBuildEditorConfig.editorconfig
+E:\Projects\Sacral\dotnet_service\Application.API\SacralAI.Code.Scheduler\bin\Debug\Apps\1\1700\202310050927\sacraldotnet\sacraldotnet.DataAccess\obj\Debug\net7.0\sacraldotnet.DataAccess.AssemblyInfoInputs.cache
+E:\Projects\Sacral\dotnet_service\Application.API\SacralAI.Code.Scheduler\bin\Debug\Apps\1\1700\202310050927\sacraldotnet\sacraldotnet.DataAccess\obj\Debug\net7.0\sacraldotnet.DataAccess.AssemblyInfo.cs
+E:\Projects\Sacral\dotnet_service\Application.API\SacralAI.Code.Scheduler\bin\Debug\Apps\1\1700\202310050927\sacraldotnet\sacraldotnet.DataAccess\obj\Debug\net7.0\sacraldotnet.DataAccess.csproj.CoreCompileInputs.cache
+E:\Projects\Sacral\dotnet_service\Application.API\SacralAI.Code.Scheduler\bin\Debug\Apps\1\1700\202310050927\sacraldotnet\sacraldotnet.DataAccess\obj\Debug\net7.0\sacraldotnet.DataAccess.dll
+E:\Projects\Sacral\dotnet_service\Application.API\SacralAI.Code.Scheduler\bin\Debug\Apps\1\1700\202310050927\sacraldotnet\sacraldotnet.DataAccess\obj\Debug\net7.0\refint\sacraldotnet.DataAccess.dll
+E:\Projects\Sacral\dotnet_service\Application.API\SacralAI.Code.Scheduler\bin\Debug\Apps\1\1700\202310050927\sacraldotnet\sacraldotnet.DataAccess\obj\Debug\net7.0\sacraldotnet.DataAccess.pdb

@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "Jy6Fuit6wTxG6jYOnGKmvWeFbD0fOQPKTDHrytkZJ4pJNah66wgAw3yIfqXi8GUQbz7rLLvcJiP7BXtGHmpyvA==",
+  "dgSpecHash": "4TPWHPve+dP3CdoJVxsyn22Zwz8nN3XIzaALbO4DGsG0CPjeL/80zPC8gCMEeW9PTWuNaryLH13KgEIXvGZO+g==",
   "success": true,
-  "projectFilePath": "E:\\Projects\\Sacral\\dotnet_service\\Application.API\\SacralAI.Code.Scheduler\\bin\\Debug\\Apps\\1\\1702\\202310050158\\sacraldotnet\\sacraldotnet.API\\sacraldotnet.API.csproj",
+  "projectFilePath": "E:\\Projects\\Sacral\\dotnet_service\\Application.API\\SacralAI.Code.Scheduler\\bin\\Debug\\Apps\\1\\1700\\202310050927\\sacraldotnet\\sacraldotnet.API\\sacraldotnet.API.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\inoc\\.nuget\\packages\\microsoft.aspnet.webapi.client\\5.2.9\\microsoft.aspnet.webapi.client.5.2.9.nupkg.sha512",
     "C:\\Users\\inoc\\.nuget\\packages\\microsoft.aspnet.webapi.core\\5.2.9\\microsoft.aspnet.webapi.core.5.2.9.nupkg.sha512",

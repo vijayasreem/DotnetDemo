@@ -1,148 +1,171 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Data;
-using System.Data.Common;
 using System.Threading.Tasks;
 using Npgsql;
 
 namespace sacraldotnet
 {
-    public interface IService<T>
+    public interface IRepository<TEntity> where TEntity : class
     {
-        Task<List<T>> GetAllAsync();
-        Task<T> GetByIdAsync(int id);
-        Task<int> CreateAsync(T entity);
-        Task<int> UpdateAsync(T entity);
+        Task<TEntity> GetByIdAsync(int id);
+        Task<IEnumerable<TEntity>> GetAllAsync();
+        Task<int> InsertAsync(TEntity entity);
+        Task<int> UpdateAsync(TEntity entity);
         Task<int> DeleteAsync(int id);
     }
 
-    public class Service<T> : IService<T> where T : IEntity
+    public class Repository<TEntity> : IRepository<TEntity> where TEntity : class
     {
         private readonly string _connectionString;
 
-        public Service(string connectionString)
+        public Repository(string connectionString)
         {
             _connectionString = connectionString;
         }
 
-        public async Task<List<T>> GetAllAsync()
+        public async Task<TEntity> GetByIdAsync(int id)
         {
-            using (var connection = GetConnection())
+            using (var connection = new NpgsqlConnection(_connectionString))
             {
                 await connection.OpenAsync();
+                var command = connection.CreateCommand();
+                command.CommandText = "SELECT * FROM " + typeof(TEntity).Name + " WHERE Id = @Id";
+                command.Parameters.AddWithValue("@Id", id);
 
-                using (var command = connection.CreateCommand())
+                using (var reader = await command.ExecuteReaderAsync())
                 {
-                    command.CommandText = $"SELECT * FROM {typeof(T).Name.ToLower()}";
-
-                    var entities = new List<T>();
-
-                    using (var reader = await command.ExecuteReaderAsync())
+                    if (await reader.ReadAsync())
                     {
-                        while (await reader.ReadAsync())
-                        {
-                            entities.Add(MapEntity(reader));
-                        }
-                    }
-
-                    return entities;
-                }
-            }
-        }
-
-        public async Task<T> GetByIdAsync(int id)
-        {
-            using (var connection = GetConnection())
-            {
-                await connection.OpenAsync();
-
-                using (var command = connection.CreateCommand())
-                {
-                    command.CommandText = $"SELECT * FROM {typeof(T).Name.ToLower()} WHERE id = @id";
-                    command.Parameters.AddWithValue("@id", id);
-
-                    using (var reader = await command.ExecuteReaderAsync())
-                    {
-                        if (await reader.ReadAsync())
-                        {
-                            return MapEntity(reader);
-                        }
-
-                        return default;
+                        return MapEntity(reader);
                     }
                 }
             }
+
+            return null;
         }
 
-        public async Task<int> CreateAsync(T entity)
+        public async Task<IEnumerable<TEntity>> GetAllAsync()
         {
-            using (var connection = GetConnection())
+            var entities = new List<TEntity>();
+
+            using (var connection = new NpgsqlConnection(_connectionString))
             {
                 await connection.OpenAsync();
+                var command = connection.CreateCommand();
+                command.CommandText = "SELECT * FROM " + typeof(TEntity).Name;
 
-                using (var command = connection.CreateCommand())
+                using (var reader = await command.ExecuteReaderAsync())
                 {
-                    command.CommandText = $"INSERT INTO {typeof(T).Name.ToLower()} VALUES (@id, @name)";
-                    command.Parameters.AddWithValue("@id", entity.Id);
-                    command.Parameters.AddWithValue("@name", entity.Name);
-
-                    return await command.ExecuteNonQueryAsync();
+                    while (await reader.ReadAsync())
+                    {
+                        entities.Add(MapEntity(reader));
+                    }
                 }
+            }
+
+            return entities;
+        }
+
+        public async Task<int> InsertAsync(TEntity entity)
+        {
+            using (var connection = new NpgsqlConnection(_connectionString))
+            {
+                await connection.OpenAsync();
+                var command = connection.CreateCommand();
+                command.CommandText = "INSERT INTO " + typeof(TEntity).Name + " VALUES (@Id, @Name)";
+                command.Parameters.AddWithValue("@Id", GetEntityId(entity));
+                command.Parameters.AddWithValue("@Name", GetEntityName(entity));
+
+                return await command.ExecuteNonQueryAsync();
             }
         }
 
-        public async Task<int> UpdateAsync(T entity)
+        public async Task<int> UpdateAsync(TEntity entity)
         {
-            using (var connection = GetConnection())
+            using (var connection = new NpgsqlConnection(_connectionString))
             {
                 await connection.OpenAsync();
+                var command = connection.CreateCommand();
+                command.CommandText = "UPDATE " + typeof(TEntity).Name + " SET Name = @Name WHERE Id = @Id";
+                command.Parameters.AddWithValue("@Id", GetEntityId(entity));
+                command.Parameters.AddWithValue("@Name", GetEntityName(entity));
 
-                using (var command = connection.CreateCommand())
-                {
-                    command.CommandText = $"UPDATE {typeof(T).Name.ToLower()} SET name = @name WHERE id = @id";
-                    command.Parameters.AddWithValue("@id", entity.Id);
-                    command.Parameters.AddWithValue("@name", entity.Name);
-
-                    return await command.ExecuteNonQueryAsync();
-                }
+                return await command.ExecuteNonQueryAsync();
             }
         }
 
         public async Task<int> DeleteAsync(int id)
         {
-            using (var connection = GetConnection())
+            using (var connection = new NpgsqlConnection(_connectionString))
             {
                 await connection.OpenAsync();
+                var command = connection.CreateCommand();
+                command.CommandText = "DELETE FROM " + typeof(TEntity).Name + " WHERE Id = @Id";
+                command.Parameters.AddWithValue("@Id", id);
 
-                using (var command = connection.CreateCommand())
-                {
-                    command.CommandText = $"DELETE FROM {typeof(T).Name.ToLower()} WHERE id = @id";
-                    command.Parameters.AddWithValue("@id", id);
-
-                    return await command.ExecuteNonQueryAsync();
-                }
+                return await command.ExecuteNonQueryAsync();
             }
         }
 
-        private T MapEntity(DbDataReader reader)
+        private TEntity MapEntity(IDataReader reader)
         {
-            var entity = Activator.CreateInstance<T>();
-
-            entity.Id = reader.GetInt32(reader.GetOrdinal("id"));
-            entity.Name = reader.GetString(reader.GetOrdinal("name"));
-
-            return entity;
+            // Map the data reader to the entity object
+            return null;
         }
 
-        private IDbConnection GetConnection()
+        private int GetEntityId(TEntity entity)
         {
-            return new NpgsqlConnection(_connectionString);
+            // Get the entity ID
+            return 0;
+        }
+
+        private string GetEntityName(TEntity entity)
+        {
+            // Get the entity name
+            return null;
         }
     }
 
-    public interface IEntity
+    public class ReportRepository : IRepository<Report>
     {
-        int Id { get; set; }
-        string Name { get; set; }
+        private readonly Repository<Report> _repository;
+
+        public ReportRepository(string connectionString)
+        {
+            _repository = new Repository<Report>(connectionString);
+        }
+
+        public async Task<Report> GetByIdAsync(int id)
+        {
+            return await _repository.GetByIdAsync(id);
+        }
+
+        public async Task<IEnumerable<Report>> GetAllAsync()
+        {
+            return await _repository.GetAllAsync();
+        }
+
+        public async Task<int> InsertAsync(Report entity)
+        {
+            return await _repository.InsertAsync(entity);
+        }
+
+        public async Task<int> UpdateAsync(Report entity)
+        {
+            return await _repository.UpdateAsync(entity);
+        }
+
+        public async Task<int> DeleteAsync(int id)
+        {
+            return await _repository.DeleteAsync(id);
+        }
+    }
+
+    public class Report
+    {
+        public int Id { get; set; }
+        public string Name { get; set; }
+        // Add additional report properties as needed
     }
 }
