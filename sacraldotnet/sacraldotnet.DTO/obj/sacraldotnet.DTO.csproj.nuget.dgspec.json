@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "E:\\Projects\\Sacral\\dotnet_service\\Application.API\\SacralAI.Code.Scheduler\\bin\\Debug\\Apps\\1\\1700\\202310055607\\sacraldotnet\\sacraldotnet.DTO\\sacraldotnet.DTO.csproj": {}
+    "E:\\Projects\\Sacral\\dotnet_service\\Application.API\\SacralAI.Code.Scheduler\\bin\\Debug\\Apps\\1\\1701\\202310055915\\sacraldotnet\\sacraldotnet.DTO\\sacraldotnet.DTO.csproj": {}
   },
   "projects": {
-    "E:\\Projects\\Sacral\\dotnet_service\\Application.API\\SacralAI.Code.Scheduler\\bin\\Debug\\Apps\\1\\1700\\202310055607\\sacraldotnet\\sacraldotnet.DTO\\sacraldotnet.DTO.csproj": {
+    "E:\\Projects\\Sacral\\dotnet_service\\Application.API\\SacralAI.Code.Scheduler\\bin\\Debug\\Apps\\1\\1701\\202310055915\\sacraldotnet\\sacraldotnet.DTO\\sacraldotnet.DTO.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "E:\\Projects\\Sacral\\dotnet_service\\Application.API\\SacralAI.Code.Scheduler\\bin\\Debug\\Apps\\1\\1700\\202310055607\\sacraldotnet\\sacraldotnet.DTO\\sacraldotnet.DTO.csproj",
+        "projectUniqueName": "E:\\Projects\\Sacral\\dotnet_service\\Application.API\\SacralAI.Code.Scheduler\\bin\\Debug\\Apps\\1\\1701\\202310055915\\sacraldotnet\\sacraldotnet.DTO\\sacraldotnet.DTO.csproj",
         "projectName": "sacraldotnet.DTO",
-        "projectPath": "E:\\Projects\\Sacral\\dotnet_service\\Application.API\\SacralAI.Code.Scheduler\\bin\\Debug\\Apps\\1\\1700\\202310055607\\sacraldotnet\\sacraldotnet.DTO\\sacraldotnet.DTO.csproj",
+        "projectPath": "E:\\Projects\\Sacral\\dotnet_service\\Application.API\\SacralAI.Code.Scheduler\\bin\\Debug\\Apps\\1\\1701\\202310055915\\sacraldotnet\\sacraldotnet.DTO\\sacraldotnet.DTO.csproj",
         "packagesPath": "C:\\Users\\inoc\\.nuget\\packages\\",
-        "outputPath": "E:\\Projects\\Sacral\\dotnet_service\\Application.API\\SacralAI.Code.Scheduler\\bin\\Debug\\Apps\\1\\1700\\202310055607\\sacraldotnet\\sacraldotnet.DTO\\obj\\",
+        "outputPath": "E:\\Projects\\Sacral\\dotnet_service\\Application.API\\SacralAI.Code.Scheduler\\bin\\Debug\\Apps\\1\\1701\\202310055915\\sacraldotnet\\sacraldotnet.DTO\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
           "C:\\Users\\inoc\\AppData\\Roaming\\NuGet\\NuGet.Config",

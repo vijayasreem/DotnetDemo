@@ -1,98 +1,79 @@
-﻿NullOrWhiteSpace(config.DestinationAddress))
-                    {
-                        throw new ArgumentException("Cloud storage address cannot be empty");
-                    }
-                    break;
-                case DestinationType.FTP:
-                    // Validate FTP address
-                    if (string.IsNullOrWhiteSpace(config.DestinationAddress))
-                    {
-                        throw new ArgumentException("FTP address cannot be empty");
-                    }
-                    break;
-            }
-        }
+﻿);
+                command.Parameters.AddWithValue("@sharePointUrl", model.SharePointUrl);
+                command.Parameters.AddWithValue("@documentLibraryName", model.DocumentLibraryName);
+                command.Parameters.AddWithValue("@clientName", model.ClientName);
+                command.Parameters.AddWithValue("@deliveryDate", model.DeliveryDate);
 
-        private async Task ValidateDeliveryConfigurationAsync(ReportDeliveryConfigurationModel config)
-        {
-            // Validate other delivery configuration
-            if (config.CustomFormat == CustomFormat.Weekly || config.CustomFormat == CustomFormat.Monthly)
-            {
-                if (config.DeliveryTime == DateTime.MinValue)
-                {
-                    throw new ArgumentException("Delivery time cannot be empty");
-                }
+                await command.ExecuteNonQueryAsync();
+
+                return (int) await command.ExecuteScalarAsync();
             }
         }
     }
 }
 
-namespace SacreddotNet.Repositories
+namespace SacralDotNet.Repository
 {
     public class ReportGeneratorRepository : IReportGeneratorRepository
     {
-        private string _connectionString;
+        private readonly string _connectionString;
 
         public ReportGeneratorRepository(string connectionString)
         {
             _connectionString = connectionString;
         }
 
-        public async Task<ReportDeliveryConfigurationModel> GetReportDeliveryConfigurationAsync(int id)
+        public async Task<ReportDeliveryConfigurationModel> GetReportDeliveryConfigurationByIdAsync(int id)
         {
-            using (var con = new NpgsqlConnection(_connectionString))
+            using (var connection = new NpgsqlConnection(_connectionString))
             {
-                var query = "SELECT * FROM ReportDeliveryConfiguration WHERE Id = @Id";
-                var result = await con.QueryFirstOrDefaultAsync<ReportDeliveryConfigurationModel>(query, new { Id = id });
-                return result;
+                await connection.OpenAsync();
+                var command = new NpgsqlCommand("SELECT * FROM report_delivery_configurations WHERE id = @id", connection);
+                command.Parameters.AddWithValue("@id", id);
+
+                using (var reader = await command.ExecuteReaderAsync())
+                {
+                    if (await reader.ReadAsync())
+                    {
+                        return new ReportDeliveryConfigurationModel
+                        {
+                            Id = reader.GetInt32(0),
+                            DestinationType = (DestinationType)reader.GetInt32(1),
+                            DestinationAddress = reader.GetString(2),
+                            CustomFormat = reader.GetString(3),
+                            DayOfWeek = reader.IsDBNull(4) ? (int?)null : reader.GetInt32(4),
+                            DayOfMonth = reader.IsDBNull(5) ? (int?)null : reader.GetInt32(5),
+                            DeliveryTime = reader.GetTimeSpan(6),
+                            EmailAddresses = reader.GetString(7).Split(','),
+                            EmailSubject = reader.GetString(8),
+                            EmailBody = reader.GetString(9),
+                            EmailFormat = reader.GetString(10),
+                            FTPUrl = reader.GetString(11),
+                            FTPCreds = reader.GetString(12),
+                            FilePath = reader.GetString(13),
+                            SharePointUrl = reader.GetString(14),
+                            DocumentLibraryName = reader.GetString(15),
+                            ClientName = reader.GetString(16),
+                            DeliveryDate = reader.GetDateTime(17)
+                        };
+                    }
+                }
             }
+
+            return null;
         }
 
-        public async Task<int> CreateReportDeliveryConfigurationAsync(ReportDeliveryConfigurationModel config)
+        public async Task<int> CreateReportDeliveryConfigurationAsync(ReportDeliveryConfigurationModel model)
         {
-            using (var con = new NpgsqlConnection(_connectionString))
+            using (var connection = new NpgsqlConnection(_connectionString))
             {
-                var query = @"INSERT INTO ReportDeliveryConfiguration (DestinationType, DestinationAddress, CustomFormat, DayOfWeek, DayOfMonth, DeliveryTime, EmailAddresses, Subject, BodyText, EmailFormat, FTPUrl, FTPPassword, FilePath, SharePointUrl, DocumentLibraryName, ClientName, DeliveryDate) 
-                              VALUES (@DestinationType, @DestinationAddress, @CustomFormat, @DayOfWeek, @DayOfMonth, @DeliveryTime, @EmailAddresses, @Subject, @BodyText, @EmailFormat, @FTPUrl, @FTPPassword, @FilePath, @SharePointUrl, @DocumentLibraryName, @ClientName, @DeliveryDate) 
-                              RETURNING Id";
-                var result = await con.ExecuteScalarAsync<int>(query, config);
-                return result;
-            }
-        }
-
-        public async Task UpdateReportDeliveryConfigurationAsync(ReportDeliveryConfigurationModel config)
-        {
-            using (var con = new NpgsqlConnection(_connectionString))
-            {
-                var query = @"UPDATE ReportDeliveryConfiguration 
-                              SET DestinationType = @DestinationType, DestinationAddress = @DestinationAddress, CustomFormat = @CustomFormat, DayOfWeek = @DayOfWeek, DayOfMonth = @DayOfMonth, DeliveryTime = @DeliveryTime, EmailAddresses = @EmailAddresses, Subject = @Subject, BodyText = @BodyText, EmailFormat = @EmailFormat, FTPUrl = @FTPUrl, FTPPassword = @FTPPassword, FilePath = @FilePath, SharePointUrl = @SharePointUrl, DocumentLibraryName = @DocumentLibraryName, ClientName = @ClientName, DeliveryDate = @DeliveryDate 
-                              WHERE Id = @Id";
-                await con.ExecuteAsync(query, config);
-            }
-        }
-
-        public async Task DeleteReportDeliveryConfigurationAsync(int id)
-        {
-            using (var con = new NpgsqlConnection(_connectionString))
-            {
-                var query = "DELETE FROM ReportDeliveryConfiguration WHERE Id = @Id";
-                await con.ExecuteAsync(query, new { Id = id });
-            }
-        }
-
-        public async Task<IEnumerable<ReportDeliveryConfigurationModel>> GetReportDeliveryConfigurationsAsync()
-        {
-            using (var con = new NpgsqlConnection(_connectionString))
-            {
-                var query = "SELECT * FROM ReportDeliveryConfiguration";
-                var result = await con.QueryAsync<ReportDeliveryConfigurationModel>(query);
-                return result;
-            }
-        }
-
-        public async Task GenerateReportAsync(FileType fileType, ReportDeliveryConfigurationModel config)
-        {
-            switch (fileType)
-            {
-                case FileType.PDF:
-                    //
+                await connection.OpenAsync();
+                var command = new NpgsqlCommand("INSERT INTO report_delivery_configurations (destination_type, destination_address, custom_format, day_of_week, day_of_month, delivery_time, email_addresses, email_subject, email_body, email_format, ftp_url, ftp_creds, file_path, sharepoint_url, document_library_name, client_name, delivery_date)" +
+                                                 "VALUES (@destinationType, @destinationAddress, @customFormat, @dayOfWeek, @dayOfMonth, @deliveryTime, @emailAddresses, @emailSubject, @emailBody, @emailFormat, @ftpUrl, @ftpCreds, @filePath, @sharePointUrl, @documentLibraryName, @clientName, @deliveryDate)", connection);
+                command.Parameters.AddWithValue("@destinationType", (int)model.DestinationType);
+                command.Parameters.AddWithValue("@destinationAddress", model.DestinationAddress);
+                command.Parameters.AddWithValue("@customFormat", model.CustomFormat);
+                command.Parameters.AddWithValue("@dayOfWeek", model.DayOfWeek);
+                command.Parameters.AddWithValue("@dayOfMonth", model.DayOfMonth);
+                command.Parameters.AddWithValue("@deliveryTime", model.DeliveryTime);
+                command.Parameters.AddWithValue("@emailAddresses", string.Join(",",

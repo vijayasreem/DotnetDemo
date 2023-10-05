@@ -1,6 +1,32 @@
-﻿public class ReportGeneratorService : IReportGeneratorService
+﻿var monthFolder = deliveryDate.ToString("MMM");
+            var dayFolder = deliveryDate.ToString("dd");
+
+            var path = $"{_sharePointUrl}/{_documentLibraryName}/{yearFolder}/{monthFolder}/{dayFolder}/{clientName}.pdf";
+
+            // Simulate delivering GL report to SharePoint
+            await Task.Delay(1000);
+            Console.WriteLine($"Successfully delivered GL report to {path}");
+        }
+    }
+
+    // Method to configure report delivery
+    public void ConfigureReportDelivery(ReportDeliveryConfiguration config) 
+    {
+        // Validate DestinationAddress
+        config.ValidateDestination();
+
+        // Validate FrequencyType, DayOfWeek, DayOfMonth, and DeliveryTime
+        config.ValidateDeliveryConfiguration();
+
+        // Simulate saving report delivery configuration
+        Console.WriteLine($"Successfully configured report delivery with {config.DestinationType}");
+    }
+}
+
+public class ReportGeneratorService : IReportGeneratorService
 {
-    public enum FileType
+    // Enumeration for FileType
+    public enum FileType 
     {
         PDF,
         CSV,
@@ -8,84 +34,108 @@
         Custom
     }
 
-    public enum DestinationType
+    // Enumeration for DestinationType
+    public enum DestinationType 
     {
         Email,
         CloudStorage,
         InternalServer
     }
 
-    public class ReportDeliveryConfiguration
+    // Class for ReportDeliveryConfiguration
+    public class ReportDeliveryConfiguration 
     {
         public DestinationType DestinationType { get; set; }
         public string DestinationAddress { get; set; }
-        public int DayOfWeek { get; set; }
-        public int DayOfMonth { get; set; }
+        public string DayOfWeek { get; set; }
+        public string DayOfMonth { get; set; }
         public TimeSpan DeliveryTime { get; set; }
 
-        public void ValidateDestination()
+        // Method to validate DestinationAddress based on the selected DestinationType
+        public void ValidateDestination() 
         {
-            switch (DestinationType)
+            switch (DestinationType) 
             {
                 case DestinationType.Email:
-                    //Validate Email address
+                    if (!IsValidEmail(DestinationAddress)) 
+                    {
+                        throw new Exception("Invalid Email Address");
+                    }
                     break;
                 case DestinationType.CloudStorage:
-                    //Ensure DestinationAddress is not empty
+                    if (string.IsNullOrEmpty(DestinationAddress)) 
+                    {
+                        throw new Exception("Empty Cloud Storage Address");
+                    }
                     break;
                 case DestinationType.InternalServer:
-                    //Ensure DestinationAddress is not empty
+                    if (string.IsNullOrEmpty(DestinationAddress)) 
+                    {
+                        throw new Exception("Empty Internal Server Address");
+                    }
                     break;
             }
         }
 
-        public void ValidateDeliveryConfiguration()
+        // Method to validate selected FrequencyType, DayOfWeek, DayOfMonth, and DeliveryTime
+        public void ValidateDeliveryConfiguration() 
         {
-            //Validate FrequencyType, DayOfWeek, DayOfMonth, and DeliveryTime
+            // Validate file type
+            if (DayOfWeek == null && DayOfMonth == null) 
+            {
+                throw new Exception("Frequency Type not selected");
+            }
+
+            // Validate DayOfWeek
+            if (DayOfWeek != null) 
+            {
+                int dayOfWeek;
+                if (!int.TryParse(DayOfWeek, out dayOfWeek) || dayOfWeek < 1 || dayOfWeek > 7) 
+                {
+                    throw new Exception("Invalid Day of Week");
+                }
+            }
+
+            // Validate DayOfMonth
+            if (DayOfMonth != null) 
+            {
+                int dayOfMonth;
+                if (!int.TryParse(DayOfMonth, out dayOfMonth) || dayOfMonth < 1 || dayOfMonth > 31) 
+                {
+                    throw new Exception("Invalid Day of Month");
+                }
+            }
+
+            // Validate DeliveryTime
+            if (DeliveryTime.TotalHours < 0 || DeliveryTime.TotalHours > 24) 
+            {
+                throw new Exception("Invalid Delivery Time");
+            }
+        }
+
+        // Method to check if email address is valid
+        private bool IsValidEmail(string email) 
+        {
+            try 
+            {
+                var addr = new System.Net.Mail.MailAddress(email);
+                return addr.Address == email;
+            }
+            catch 
+            {
+                return false;
+            }
         }
     }
 
-    public class SharePointIntegration
+    // Method to generate reports based on selected file type
+    public async Task GenerateReport(FileType fileType) 
     {
-        private readonly string _sharePointUrl;
-        private readonly string _documentLibraryName;
-
-        public SharePointIntegration(string sharePointUrl, string documentLibraryName)
-        {
-            _sharePointUrl = sharePointUrl;
-            _documentLibraryName = documentLibraryName;
-        }
-
-        public async Task DeliverGLReportAsync(string clientName, DateTime deliveryDate)
-        {
-            //Connect to SharePoint
-            //Check if client-specific folder exists
-            //Construct full path
-            //Upload placeholder GL report
-            //Print success/error messages
-            //Handle exceptions
-        }
-    }
-
-    public async Task GenerateReport(FileType fileType, ReportDeliveryConfiguration config)
-    {
-        config.ValidateDestination();
-        config.ValidateDeliveryConfiguration();
-
-        switch (fileType)
+        switch (fileType) 
         {
             case FileType.PDF:
-                //Simulate PDF report generation
+                // Simulate generating PDF report
+                await Task.Delay(1000);
                 break;
             case FileType.CSV:
-                //Simulate CSV report generation
-                break;
-            case FileType.Excel:
-                //Simulate Excel report generation
-                break;
-            case FileType.Custom:
-                //Simulate Custom report generation
-                break;
-        }
-    }
-}
+               
