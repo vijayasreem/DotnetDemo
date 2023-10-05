@@ -13,3 +13,11 @@ D:\Amar\20230929_Debug\Apps\1\1700\202310054833\sacraldotnet\sacraldotnet.DataAc
 D:\Amar\20230929_Debug\Apps\1\1700\202310054833\sacraldotnet\sacraldotnet.DataAccess\obj\Debug\net7.0\refint\sacraldotnet.DataAccess.dll
 D:\Amar\20230929_Debug\Apps\1\1700\202310054833\sacraldotnet\sacraldotnet.DataAccess\obj\Debug\net7.0\sacraldotnet.DataAccess.pdb
 D:\Amar\20230929_Debug\Apps\1\1700\202310054833\sacraldotnet\sacraldotnet.DataAccess\obj\Debug\net7.0\ref\sacraldotnet.DataAccess.dll
+E:\Projects\Sacral\dotnet_service\Application.API\SacralAI.Code.Scheduler\bin\Debug\Apps\1\1701\202310053241\sacraldotnet\sacraldotnet.DataAccess\obj\Debug\net7.0\sacraldotnet.DataAccess.csproj.AssemblyReference.cache
+E:\Projects\Sacral\dotnet_service\Application.API\SacralAI.Code.Scheduler\bin\Debug\Apps\1\1701\202310053241\sacraldotnet\sacraldotnet.DataAccess\obj\Debug\net7.0\sacraldotnet.DataAccess.GeneratedMSBuildEditorConfig.editorconfig
+E:\Projects\Sacral\dotnet_service\Application.API\SacralAI.Code.Scheduler\bin\Debug\Apps\1\1701\202310053241\sacraldotnet\sacraldotnet.DataAccess\obj\Debug\net7.0\sacraldotnet.DataAccess.AssemblyInfoInputs.cache
+E:\Projects\Sacral\dotnet_service\Application.API\SacralAI.Code.Scheduler\bin\Debug\Apps\1\1701\202310053241\sacraldotnet\sacraldotnet.DataAccess\obj\Debug\net7.0\sacraldotnet.DataAccess.AssemblyInfo.cs
+E:\Projects\Sacral\dotnet_service\Application.API\SacralAI.Code.Scheduler\bin\Debug\Apps\1\1701\202310053241\sacraldotnet\sacraldotnet.DataAccess\obj\Debug\net7.0\sacraldotnet.DataAccess.csproj.CoreCompileInputs.cache
+E:\Projects\Sacral\dotnet_service\Application.API\SacralAI.Code.Scheduler\bin\Debug\Apps\1\1701\202310053241\sacraldotnet\sacraldotnet.DataAccess\obj\Debug\net7.0\sacraldotnet.DataAccess.dll
+E:\Projects\Sacral\dotnet_service\Application.API\SacralAI.Code.Scheduler\bin\Debug\Apps\1\1701\202310053241\sacraldotnet\sacraldotnet.DataAccess\obj\Debug\net7.0\refint\sacraldotnet.DataAccess.dll
+E:\Projects\Sacral\dotnet_service\Application.API\SacralAI.Code.Scheduler\bin\Debug\Apps\1\1701\202310053241\sacraldotnet\sacraldotnet.DataAccess\obj\Debug\net7.0\sacraldotnet.DataAccess.pdb

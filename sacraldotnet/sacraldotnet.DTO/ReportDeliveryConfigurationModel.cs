@@ -1,64 +1,39 @@
-﻿namespace sacraldotnet
+﻿namespace SacreddotNet
 {
-    public class ReportDeliveryConfigurationModel
+    public enum FileType
     {
-        public int Id { get; set; }
-        public DestinationTypeModel DestinationType { get; set; }
-        public string DestinationAddress { get; set; }
-        public FrequencyTypeModel FrequencyType { get; set; }
-        public int DayOfWeek { get; set; }
-        public int DayOfMonth { get; set; }
-        public TimeSpan DeliveryTime { get; set; }
+        PDF,
+        CSV,
+        Excel,
+        Custom
     }
 
-    public enum DestinationTypeModel
+    public enum DestinationType
     {
         Email,
         CloudStorage,
         InternalServer
     }
 
-    public enum FrequencyTypeModel
+    public class ReportDeliveryConfigurationModel
     {
-        Daily,
-        Weekly,
-        Monthly,
-        Custom
-    }
-
-    public class ReportGeneratorModel
-    {
-        public FileTypeModel FileType { get; set; }
-        public ReportDeliveryConfigurationModel ReportDeliveryConfiguration { get; set; }
-
-        public void GenerateReport()
-        {
-            switch (FileType)
-            {
-                case FileTypeModel.PDF:
-                    // Logic for generating PDF report
-                    break;
-                case FileTypeModel.CSV:
-                    // Logic for generating CSV report
-                    break;
-                case FileTypeModel.Excel:
-                    // Logic for generating Excel report
-                    break;
-                case FileTypeModel.Custom:
-                    // Logic for generating custom report
-                    break;
-                default:
-                    // Invalid file type
-                    break;
-            }
-        }
-    }
-
-    public enum FileTypeModel
-    {
-        PDF,
-        CSV,
-        Excel,
-        Custom
+        public int Id { get; set; }
+        public DestinationType DestinationType { get; set; }
+        public string DestinationAddress { get; set; }
+        public string CustomFormat { get; set; }
+        public string DayOfWeek { get; set; }
+        public string DayOfMonth { get; set; }
+        public TimeSpan DeliveryTime { get; set; }
+        public string EmailAddresses { get; set; }
+        public string Subject { get; set; }
+        public string BodyText { get; set; }
+        public string EmailFormat { get; set; }
+        public string FTPUrl { get; set; }
+        public string FTPPassword { get; set; }
+        public string FilePath { get; set; }
+        public string SharePointUrl { get; set; }
+        public string DocumentLibraryName { get; set; }
+        public string ClientName { get; set; }
+        public string DeliveryDate { get; set; }
     }
 }

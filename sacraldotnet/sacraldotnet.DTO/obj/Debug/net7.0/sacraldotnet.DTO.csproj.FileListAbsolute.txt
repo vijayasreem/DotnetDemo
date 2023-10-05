@@ -10,3 +10,14 @@ D:\Amar\20230929_Debug\Apps\1\1700\202310054833\sacraldotnet\sacraldotnet.DTO\ob
 D:\Amar\20230929_Debug\Apps\1\1700\202310054833\sacraldotnet\sacraldotnet.DTO\obj\Debug\net7.0\refint\sacraldotnet.DTO.dll
 D:\Amar\20230929_Debug\Apps\1\1700\202310054833\sacraldotnet\sacraldotnet.DTO\obj\Debug\net7.0\sacraldotnet.DTO.pdb
 D:\Amar\20230929_Debug\Apps\1\1700\202310054833\sacraldotnet\sacraldotnet.DTO\obj\Debug\net7.0\ref\sacraldotnet.DTO.dll
+E:\Projects\Sacral\dotnet_service\Application.API\SacralAI.Code.Scheduler\bin\Debug\Apps\1\1701\202310053241\sacraldotnet\sacraldotnet.DTO\bin\Debug\net7.0\sacraldotnet.DTO.deps.json
+E:\Projects\Sacral\dotnet_service\Application.API\SacralAI.Code.Scheduler\bin\Debug\Apps\1\1701\202310053241\sacraldotnet\sacraldotnet.DTO\bin\Debug\net7.0\sacraldotnet.DTO.dll
+E:\Projects\Sacral\dotnet_service\Application.API\SacralAI.Code.Scheduler\bin\Debug\Apps\1\1701\202310053241\sacraldotnet\sacraldotnet.DTO\bin\Debug\net7.0\sacraldotnet.DTO.pdb
+E:\Projects\Sacral\dotnet_service\Application.API\SacralAI.Code.Scheduler\bin\Debug\Apps\1\1701\202310053241\sacraldotnet\sacraldotnet.DTO\obj\Debug\net7.0\sacraldotnet.DTO.GeneratedMSBuildEditorConfig.editorconfig
+E:\Projects\Sacral\dotnet_service\Application.API\SacralAI.Code.Scheduler\bin\Debug\Apps\1\1701\202310053241\sacraldotnet\sacraldotnet.DTO\obj\Debug\net7.0\sacraldotnet.DTO.AssemblyInfoInputs.cache
+E:\Projects\Sacral\dotnet_service\Application.API\SacralAI.Code.Scheduler\bin\Debug\Apps\1\1701\202310053241\sacraldotnet\sacraldotnet.DTO\obj\Debug\net7.0\sacraldotnet.DTO.AssemblyInfo.cs
+E:\Projects\Sacral\dotnet_service\Application.API\SacralAI.Code.Scheduler\bin\Debug\Apps\1\1701\202310053241\sacraldotnet\sacraldotnet.DTO\obj\Debug\net7.0\sacraldotnet.DTO.csproj.CoreCompileInputs.cache
+E:\Projects\Sacral\dotnet_service\Application.API\SacralAI.Code.Scheduler\bin\Debug\Apps\1\1701\202310053241\sacraldotnet\sacraldotnet.DTO\obj\Debug\net7.0\sacraldotnet.DTO.dll
+E:\Projects\Sacral\dotnet_service\Application.API\SacralAI.Code.Scheduler\bin\Debug\Apps\1\1701\202310053241\sacraldotnet\sacraldotnet.DTO\obj\Debug\net7.0\refint\sacraldotnet.DTO.dll
+E:\Projects\Sacral\dotnet_service\Application.API\SacralAI.Code.Scheduler\bin\Debug\Apps\1\1701\202310053241\sacraldotnet\sacraldotnet.DTO\obj\Debug\net7.0\sacraldotnet.DTO.pdb
+E:\Projects\Sacral\dotnet_service\Application.API\SacralAI.Code.Scheduler\bin\Debug\Apps\1\1701\202310053241\sacraldotnet\sacraldotnet.DTO\obj\Debug\net7.0\ref\sacraldotnet.DTO.dll
