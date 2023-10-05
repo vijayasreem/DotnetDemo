@@ -1,0 +1,17 @@
+D:\Amar\20230929_Debug\Apps\1\1700\202310054833\sacraldotnet\sacraldotnet.Service\bin\Debug\net7.0\sacraldotnet.Service.deps.json
+D:\Amar\20230929_Debug\Apps\1\1700\202310054833\sacraldotnet\sacraldotnet.Service\bin\Debug\net7.0\sacraldotnet.Service.dll
+D:\Amar\20230929_Debug\Apps\1\1700\202310054833\sacraldotnet\sacraldotnet.Service\bin\Debug\net7.0\sacraldotnet.Service.pdb
+D:\Amar\20230929_Debug\Apps\1\1700\202310054833\sacraldotnet\sacraldotnet.Service\bin\Debug\net7.0\sacraldotnet.DataAccess.dll
+D:\Amar\20230929_Debug\Apps\1\1700\202310054833\sacraldotnet\sacraldotnet.Service\bin\Debug\net7.0\sacraldotnet.DTO.dll
+D:\Amar\20230929_Debug\Apps\1\1700\202310054833\sacraldotnet\sacraldotnet.Service\bin\Debug\net7.0\sacraldotnet.DTO.pdb
+D:\Amar\20230929_Debug\Apps\1\1700\202310054833\sacraldotnet\sacraldotnet.Service\bin\Debug\net7.0\sacraldotnet.DataAccess.pdb
+D:\Amar\20230929_Debug\Apps\1\1700\202310054833\sacraldotnet\sacraldotnet.Service\obj\Debug\net7.0\sacraldotnet.Service.csproj.AssemblyReference.cache
+D:\Amar\20230929_Debug\Apps\1\1700\202310054833\sacraldotnet\sacraldotnet.Service\obj\Debug\net7.0\sacraldotnet.Service.GeneratedMSBuildEditorConfig.editorconfig
+D:\Amar\20230929_Debug\Apps\1\1700\202310054833\sacraldotnet\sacraldotnet.Service\obj\Debug\net7.0\sacraldotnet.Service.AssemblyInfoInputs.cache
+D:\Amar\20230929_Debug\Apps\1\1700\202310054833\sacraldotnet\sacraldotnet.Service\obj\Debug\net7.0\sacraldotnet.Service.AssemblyInfo.cs
+D:\Amar\20230929_Debug\Apps\1\1700\202310054833\sacraldotnet\sacraldotnet.Service\obj\Debug\net7.0\sacraldotnet.Service.csproj.CoreCompileInputs.cache
+D:\Amar\20230929_Debug\Apps\1\1700\202310054833\sacraldotnet\sacraldotnet.Service\obj\Debug\net7.0\sacraldotnet.Service.csproj.CopyComplete
+D:\Amar\20230929_Debug\Apps\1\1700\202310054833\sacraldotnet\sacraldotnet.Service\obj\Debug\net7.0\sacraldotnet.Service.dll
+D:\Amar\20230929_Debug\Apps\1\1700\202310054833\sacraldotnet\sacraldotnet.Service\obj\Debug\net7.0\refint\sacraldotnet.Service.dll
+D:\Amar\20230929_Debug\Apps\1\1700\202310054833\sacraldotnet\sacraldotnet.Service\obj\Debug\net7.0\sacraldotnet.Service.pdb
+D:\Amar\20230929_Debug\Apps\1\1700\202310054833\sacraldotnet\sacraldotnet.Service\obj\Debug\net7.0\ref\sacraldotnet.Service.dll

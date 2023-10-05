@@ -1,0 +1,261 @@
+{
+  "format": 1,
+  "restore": {
+    "D:\\Amar\\20230929_Debug\\Apps\\1\\1700\\202310054833\\sacraldotnet\\sacraldotnet.API\\sacraldotnet.API.csproj": {}
+  },
+  "projects": {
+    "D:\\Amar\\20230929_Debug\\Apps\\1\\1700\\202310054833\\sacraldotnet\\sacraldotnet.API\\sacraldotnet.API.csproj": {
+      "version": "1.0.0",
+      "restore": {
+        "projectUniqueName": "D:\\Amar\\20230929_Debug\\Apps\\1\\1700\\202310054833\\sacraldotnet\\sacraldotnet.API\\sacraldotnet.API.csproj",
+        "projectName": "sacraldotnet.API",
+        "projectPath": "D:\\Amar\\20230929_Debug\\Apps\\1\\1700\\202310054833\\sacraldotnet\\sacraldotnet.API\\sacraldotnet.API.csproj",
+        "packagesPath": "C:\\Users\\mmadipally\\.nuget\\packages\\",
+        "outputPath": "D:\\Amar\\20230929_Debug\\Apps\\1\\1700\\202310054833\\sacraldotnet\\sacraldotnet.API\\obj\\",
+        "projectStyle": "PackageReference",
+        "configFilePaths": [
+          "C:\\Users\\mmadipally\\AppData\\Roaming\\NuGet\\NuGet.Config"
+        ],
+        "originalTargetFrameworks": [
+          "net7.0"
+        ],
+        "sources": {
+          "https://api.nuget.org/v3/index.json": {}
+        },
+        "frameworks": {
+          "net7.0": {
+            "targetAlias": "net7.0",
+            "projectReferences": {
+              "D:\\Amar\\20230929_Debug\\Apps\\1\\1700\\202310054833\\sacraldotnet\\sacraldotnet.DTO\\sacraldotnet.DTO.csproj": {
+                "projectPath": "D:\\Amar\\20230929_Debug\\Apps\\1\\1700\\202310054833\\sacraldotnet\\sacraldotnet.DTO\\sacraldotnet.DTO.csproj"
+              },
+              "D:\\Amar\\20230929_Debug\\Apps\\1\\1700\\202310054833\\sacraldotnet\\sacraldotnet.Service\\sacraldotnet.Service.csproj": {
+                "projectPath": "D:\\Amar\\20230929_Debug\\Apps\\1\\1700\\202310054833\\sacraldotnet\\sacraldotnet.Service\\sacraldotnet.Service.csproj"
+              }
+            }
+          }
+        },
+        "warningProperties": {
+          "warnAsError": [
+            "NU1605"
+          ]
+        }
+      },
+      "frameworks": {
+        "net7.0": {
+          "targetAlias": "net7.0",
+          "dependencies": {
+            "Microsoft.AspNet.WebApi.Core": {
+              "target": "Package",
+              "version": "[5.2.9, )"
+            },
+            "Microsoft.AspNetCore.OpenApi": {
+              "target": "Package",
+              "version": "[7.0.5, )"
+            },
+            "Swashbuckle.AspNetCore": {
+              "target": "Package",
+              "version": "[6.4.0, )"
+            }
+          },
+          "imports": [
+            "net461",
+            "net462",
+            "net47",
+            "net471",
+            "net472",
+            "net48",
+            "net481"
+          ],
+          "assetTargetFallback": true,
+          "warn": true,
+          "frameworkReferences": {
+            "Microsoft.AspNetCore.App": {
+              "privateAssets": "none"
+            },
+            "Microsoft.NETCore.App": {
+              "privateAssets": "all"
+            }
+          },
+          "runtimeIdentifierGraphPath": "C:\\Program Files (x86)\\dotnet\\sdk\\7.0.203\\RuntimeIdentifierGraph.json"
+        }
+      }
+    },
+    "D:\\Amar\\20230929_Debug\\Apps\\1\\1700\\202310054833\\sacraldotnet\\sacraldotnet.DataAccess\\sacraldotnet.DataAccess.csproj": {
+      "version": "1.0.0",
+      "restore": {
+        "projectUniqueName": "D:\\Amar\\20230929_Debug\\Apps\\1\\1700\\202310054833\\sacraldotnet\\sacraldotnet.DataAccess\\sacraldotnet.DataAccess.csproj",
+        "projectName": "sacraldotnet.DataAccess",
+        "projectPath": "D:\\Amar\\20230929_Debug\\Apps\\1\\1700\\202310054833\\sacraldotnet\\sacraldotnet.DataAccess\\sacraldotnet.DataAccess.csproj",
+        "packagesPath": "C:\\Users\\mmadipally\\.nuget\\packages\\",
+        "outputPath": "D:\\Amar\\20230929_Debug\\Apps\\1\\1700\\202310054833\\sacraldotnet\\sacraldotnet.DataAccess\\obj\\",
+        "projectStyle": "PackageReference",
+        "configFilePaths": [
+          "C:\\Users\\mmadipally\\AppData\\Roaming\\NuGet\\NuGet.Config"
+        ],
+        "originalTargetFrameworks": [
+          "net7.0"
+        ],
+        "sources": {
+          "https://api.nuget.org/v3/index.json": {}
+        },
+        "frameworks": {
+          "net7.0": {
+            "targetAlias": "net7.0",
+            "projectReferences": {
+              "D:\\Amar\\20230929_Debug\\Apps\\1\\1700\\202310054833\\sacraldotnet\\sacraldotnet.DTO\\sacraldotnet.DTO.csproj": {
+                "projectPath": "D:\\Amar\\20230929_Debug\\Apps\\1\\1700\\202310054833\\sacraldotnet\\sacraldotnet.DTO\\sacraldotnet.DTO.csproj"
+              }
+            }
+          }
+        },
+        "warningProperties": {
+          "warnAsError": [
+            "NU1605"
+          ]
+        }
+      },
+      "frameworks": {
+        "net7.0": {
+          "targetAlias": "net7.0",
+          "dependencies": {
+            "Npgsql": {
+              "target": "Package",
+              "version": "[7.0.6, )"
+            }
+          },
+          "imports": [
+            "net461",
+            "net462",
+            "net47",
+            "net471",
+            "net472",
+            "net48",
+            "net481"
+          ],
+          "assetTargetFallback": true,
+          "warn": true,
+          "frameworkReferences": {
+            "Microsoft.NETCore.App": {
+              "privateAssets": "all"
+            }
+          },
+          "runtimeIdentifierGraphPath": "C:\\Program Files (x86)\\dotnet\\sdk\\7.0.203\\RuntimeIdentifierGraph.json"
+        }
+      }
+    },
+    "D:\\Amar\\20230929_Debug\\Apps\\1\\1700\\202310054833\\sacraldotnet\\sacraldotnet.DTO\\sacraldotnet.DTO.csproj": {
+      "version": "1.0.0",
+      "restore": {
+        "projectUniqueName": "D:\\Amar\\20230929_Debug\\Apps\\1\\1700\\202310054833\\sacraldotnet\\sacraldotnet.DTO\\sacraldotnet.DTO.csproj",
+        "projectName": "sacraldotnet.DTO",
+        "projectPath": "D:\\Amar\\20230929_Debug\\Apps\\1\\1700\\202310054833\\sacraldotnet\\sacraldotnet.DTO\\sacraldotnet.DTO.csproj",
+        "packagesPath": "C:\\Users\\mmadipally\\.nuget\\packages\\",
+        "outputPath": "D:\\Amar\\20230929_Debug\\Apps\\1\\1700\\202310054833\\sacraldotnet\\sacraldotnet.DTO\\obj\\",
+        "projectStyle": "PackageReference",
+        "configFilePaths": [
+          "C:\\Users\\mmadipally\\AppData\\Roaming\\NuGet\\NuGet.Config"
+        ],
+        "originalTargetFrameworks": [
+          "net7.0"
+        ],
+        "sources": {
+          "https://api.nuget.org/v3/index.json": {}
+        },
+        "frameworks": {
+          "net7.0": {
+            "targetAlias": "net7.0",
+            "projectReferences": {}
+          }
+        },
+        "warningProperties": {
+          "warnAsError": [
+            "NU1605"
+          ]
+        }
+      },
+      "frameworks": {
+        "net7.0": {
+          "targetAlias": "net7.0",
+          "imports": [
+            "net461",
+            "net462",
+            "net47",
+            "net471",
+            "net472",
+            "net48",
+            "net481"
+          ],
+          "assetTargetFallback": true,
+          "warn": true,
+          "frameworkReferences": {
+            "Microsoft.NETCore.App": {
+              "privateAssets": "all"
+            }
+          },
+          "runtimeIdentifierGraphPath": "C:\\Program Files (x86)\\dotnet\\sdk\\7.0.203\\RuntimeIdentifierGraph.json"
+        }
+      }
+    },
+    "D:\\Amar\\20230929_Debug\\Apps\\1\\1700\\202310054833\\sacraldotnet\\sacraldotnet.Service\\sacraldotnet.Service.csproj": {
+      "version": "1.0.0",
+      "restore": {
+        "projectUniqueName": "D:\\Amar\\20230929_Debug\\Apps\\1\\1700\\202310054833\\sacraldotnet\\sacraldotnet.Service\\sacraldotnet.Service.csproj",
+        "projectName": "sacraldotnet.Service",
+        "projectPath": "D:\\Amar\\20230929_Debug\\Apps\\1\\1700\\202310054833\\sacraldotnet\\sacraldotnet.Service\\sacraldotnet.Service.csproj",
+        "packagesPath": "C:\\Users\\mmadipally\\.nuget\\packages\\",
+        "outputPath": "D:\\Amar\\20230929_Debug\\Apps\\1\\1700\\202310054833\\sacraldotnet\\sacraldotnet.Service\\obj\\",
+        "projectStyle": "PackageReference",
+        "configFilePaths": [
+          "C:\\Users\\mmadipally\\AppData\\Roaming\\NuGet\\NuGet.Config"
+        ],
+        "originalTargetFrameworks": [
+          "net7.0"
+        ],
+        "sources": {
+          "https://api.nuget.org/v3/index.json": {}
+        },
+        "frameworks": {
+          "net7.0": {
+            "targetAlias": "net7.0",
+            "projectReferences": {
+              "D:\\Amar\\20230929_Debug\\Apps\\1\\1700\\202310054833\\sacraldotnet\\sacraldotnet.DataAccess\\sacraldotnet.DataAccess.csproj": {
+                "projectPath": "D:\\Amar\\20230929_Debug\\Apps\\1\\1700\\202310054833\\sacraldotnet\\sacraldotnet.DataAccess\\sacraldotnet.DataAccess.csproj"
+              },
+              "D:\\Amar\\20230929_Debug\\Apps\\1\\1700\\202310054833\\sacraldotnet\\sacraldotnet.DTO\\sacraldotnet.DTO.csproj": {
+                "projectPath": "D:\\Amar\\20230929_Debug\\Apps\\1\\1700\\202310054833\\sacraldotnet\\sacraldotnet.DTO\\sacraldotnet.DTO.csproj"
+              }
+            }
+          }
+        },
+        "warningProperties": {
+          "warnAsError": [
+            "NU1605"
+          ]
+        }
+      },
+      "frameworks": {
+        "net7.0": {
+          "targetAlias": "net7.0",
+          "imports": [
+            "net461",
+            "net462",
+            "net47",
+            "net471",
+            "net472",
+            "net48",
+            "net481"
+          ],
+          "assetTargetFallback": true,
+          "warn": true,
+          "frameworkReferences": {
+            "Microsoft.NETCore.App": {
+              "privateAssets": "all"
+            }
+          },
+          "runtimeIdentifierGraphPath": "C:\\Program Files (x86)\\dotnet\\sdk\\7.0.203\\RuntimeIdentifierGraph.json"
+        }
+      }
+    }
+  }
+}

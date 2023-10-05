@@ -1,0 +1,11 @@
+{
+  "version": 2,
+  "dgSpecHash": "WYfARL666ltq6VX2ujRE4m7ZAvKK4puz/cikla5CDG/S4smwleFrL3PHV2+FJQzkWO61BnQFKpGgZXGHEnwjGQ==",
+  "success": true,
+  "projectFilePath": "D:\\Amar\\20230929_Debug\\Apps\\1\\1700\\202310054833\\sacraldotnet\\sacraldotnet.DataAccess\\sacraldotnet.DataAccess.csproj",
+  "expectedPackageFiles": [
+    "C:\\Users\\mmadipally\\.nuget\\packages\\microsoft.extensions.logging.abstractions\\6.0.0\\microsoft.extensions.logging.abstractions.6.0.0.nupkg.sha512",
+    "C:\\Users\\mmadipally\\.nuget\\packages\\npgsql\\7.0.6\\npgsql.7.0.6.nupkg.sha512"
+  ],
+  "logs": []
+}
