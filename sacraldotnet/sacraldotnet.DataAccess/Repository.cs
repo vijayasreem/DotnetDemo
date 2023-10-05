@@ -1,11 +1,13 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Data;
+using System.Data.Common;
 using System.Threading.Tasks;
 using Npgsql;
 
-namespace sacraldotnet
+namespace sacraldotnet.Repository
 {
-    public class Repository<T> : IRepository<T>
+    public class Repository<TEntity> : IRepository<TEntity> where TEntity : class
     {
         private readonly string _connectionString;
 
@@ -14,126 +16,130 @@ namespace sacraldotnet
             _connectionString = connectionString;
         }
 
-        public async Task<T> GetByIdAsync(int id)
+        public async Task<IEnumerable<TEntity>> GetAllAsync()
         {
-            using (var connection = new NpgsqlConnection(_connectionString))
+            using (var connection = GetOpenConnection())
             {
-                await connection.OpenAsync();
-                // TODO: Implement logic to fetch entity by id from the database
-                throw new NotImplementedException();
+                var command = connection.CreateCommand();
+                command.CommandText = $"SELECT * FROM {GetTableName()}";
+                return await ReadEntitiesAsync(command);
             }
         }
 
-        public async Task<IEnumerable<T>> GetAllAsync()
+        public async Task<TEntity> GetByIdAsync(int id)
         {
-            using (var connection = new NpgsqlConnection(_connectionString))
+            using (var connection = GetOpenConnection())
             {
-                await connection.OpenAsync();
-                // TODO: Implement logic to fetch all entities from the database
-                throw new NotImplementedException();
+                var command = connection.CreateCommand();
+                command.CommandText = $"SELECT * FROM {GetTableName()} WHERE Id = @Id";
+                command.Parameters.Add(CreateParameter("Id", id));
+                return await ReadEntityAsync(command);
             }
         }
 
-        public async Task AddAsync(T entity)
+        public async Task<TEntity> AddAsync(TEntity entity)
         {
-            using (var connection = new NpgsqlConnection(_connectionString))
+            using (var connection = GetOpenConnection())
             {
-                await connection.OpenAsync();
-                // TODO: Implement logic to add entity to the database
-                throw new NotImplementedException();
+                var command = connection.CreateCommand();
+                command.CommandText = GetInsertCommandText();
+                AddEntityParameters(command, entity);
+                await command.ExecuteNonQueryAsync();
+                return entity;
             }
         }
 
-        public async Task UpdateAsync(T entity)
+        public async Task<TEntity> UpdateAsync(TEntity entity)
         {
-            using (var connection = new NpgsqlConnection(_connectionString))
+            using (var connection = GetOpenConnection())
             {
-                await connection.OpenAsync();
-                // TODO: Implement logic to update entity in the database
-                throw new NotImplementedException();
+                var command = connection.CreateCommand();
+                command.CommandText = GetUpdateCommandText();
+                AddEntityParameters(command, entity);
+                await command.ExecuteNonQueryAsync();
+                return entity;
             }
         }
 
-        public async Task DeleteAsync(T entity)
+        public async Task DeleteAsync(int id)
         {
-            using (var connection = new NpgsqlConnection(_connectionString))
+            using (var connection = GetOpenConnection())
             {
-                await connection.OpenAsync();
-                // TODO: Implement logic to delete entity from the database
-                throw new NotImplementedException();
+                var command = connection.CreateCommand();
+                command.CommandText = $"DELETE FROM {GetTableName()} WHERE Id = @Id";
+                command.Parameters.Add(CreateParameter("Id", id));
+                await command.ExecuteNonQueryAsync();
             }
         }
-    }
 
-    public enum DestinationType
-    {
-        Email,
-        CloudStorage,
-        InternalServer
-    }
-
-    public class ReportDeliveryConfigurationModel
-    {
-        public DestinationType DestinationType { get; set; }
-        public string DestinationAddress { get; set; }
-
-        public void ValidateDestination()
+        private async Task<IEnumerable<TEntity>> ReadEntitiesAsync(DbCommand command)
         {
-            // TODO: Implement validation logic for DestinationAddress based on DestinationType
+            var entities = new List<TEntity>();
+            using (var reader = await command.ExecuteReaderAsync())
+            {
+                while (await reader.ReadAsync())
+                {
+                    var entity = Activator.CreateInstance<TEntity>();
+                    PopulateEntity(reader, entity);
+                    entities.Add(entity);
+                }
+            }
+            return entities;
         }
-    }
 
-    public class ReportGeneratorModel
-    {
-        public FileType FileType { get; set; }
-
-        public void GenerateReport()
+        private async Task<TEntity> ReadEntityAsync(DbCommand command)
         {
-            // TODO: Implement logic for generating reports based on FileType
+            using (var reader = await command.ExecuteReaderAsync())
+            {
+                if (await reader.ReadAsync())
+                {
+                    var entity = Activator.CreateInstance<TEntity>();
+                    PopulateEntity(reader, entity);
+                    return entity;
+                }
+                return null;
+            }
         }
-    }
 
-    public enum FileType
-    {
-        PDF,
-        CSV,
-        Excel,
-        Custom
-    }
-
-    public enum FrequencyType
-    {
-        Weekly,
-        Monthly,
-        Custom
-    }
-
-    public class DeliveryConfigurationModel
-    {
-        public FrequencyType FrequencyType { get; set; }
-        public DayOfWeek DayOfWeek { get; set; }
-        public DayOfMonth DayOfMonth { get; set; }
-        public TimeSpan DeliveryTime { get; set; }
-
-        public void ValidateDeliveryConfiguration()
+        private void PopulateEntity(DbDataReader reader, TEntity entity)
         {
-            // TODO: Implement validation logic for FrequencyType, DayOfWeek, DayOfMonth, and DeliveryTime
+            // TODO: Implement logic to populate entity properties from reader columns
         }
-    }
 
-    public class SharePointIntegrationModel
-    {
-        public string SharePointUrl { get; set; }
-        public string DocumentLibraryName { get; set; }
-
-        public void DeliverGLReport(string clientName, DateTime deliveryDate)
+        private void AddEntityParameters(DbCommand command, TEntity entity)
         {
-            // TODO: Implement logic for delivering GL report to SharePoint
+            // TODO: Implement logic to add parameters to the command based on entity properties
         }
-    }
 
-    public class DayOfMonth
-    {
-        public int Day { get; set; }
+        private DbParameter CreateParameter(string name, object value)
+        {
+            var parameter = new NpgsqlParameter(name, value);
+            return parameter;
+        }
+
+        private string GetTableName()
+        {
+            // TODO: Implement logic to determine the table name based on TEntity type
+            return typeof(TEntity).Name;
+        }
+
+        private string GetInsertCommandText()
+        {
+            // TODO: Implement logic to generate the INSERT command text based on TEntity type
+            return "";
+        }
+
+        private string GetUpdateCommandText()
+        {
+            // TODO: Implement logic to generate the UPDATE command text based on TEntity type
+            return "";
+        }
+
+        private NpgsqlConnection GetOpenConnection()
+        {
+            var connection = new NpgsqlConnection(_connectionString);
+            connection.Open();
+            return connection;
+        }
     }
 }

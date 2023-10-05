@@ -1,11 +1,10 @@
-﻿namespace SacralDotNet
+﻿namespace sacraldotnet
 {
-    public enum FileType
+    public class ReportDeliveryConfigurationModel
     {
-        PDF,
-        CSV,
-        Excel,
-        Custom
+        public int Id { get; set; }
+        public DestinationType DestinationType { get; set; }
+        public string DestinationAddress { get; set; }
     }
 
     public enum DestinationType
@@ -14,26 +13,30 @@
         CloudStorage,
         InternalServer
     }
-
-    public class ReportDeliveryConfigurationModel
+    
+    public class ReportGeneratorModel
     {
         public int Id { get; set; }
-        public DestinationType DestinationType { get; set; }
-        public string DestinationAddress { get; set; }
+        public FileType FileType { get; set; }
         public string CustomFormat { get; set; }
-        public int? DayOfWeek { get; set; }
-        public int? DayOfMonth { get; set; }
+        public ReportDeliveryConfigurationModel ReportDeliveryConfiguration { get; set; }
+        public FrequencyType FrequencyType { get; set; }
+        public int[] DaysOfWeek { get; set; }
+        public int[] DaysOfMonth { get; set; }
         public TimeSpan DeliveryTime { get; set; }
-        public string[] EmailAddresses { get; set; }
-        public string EmailSubject { get; set; }
-        public string EmailBody { get; set; }
-        public string EmailFormat { get; set; }
-        public string FTPUrl { get; set; }
-        public string FTPCreds { get; set; }
-        public string FilePath { get; set; }
-        public string SharePointUrl { get; set; }
-        public string DocumentLibraryName { get; set; }
-        public string ClientName { get; set; }
-        public DateTime DeliveryDate { get; set; }
+    }
+
+    public enum FileType
+    {
+        PDF,
+        CSV,
+        Excel,
+        Custom
+    }
+
+    public enum FrequencyType
+    {
+        DayOfWeek,
+        DayOfMonth
     }
 }

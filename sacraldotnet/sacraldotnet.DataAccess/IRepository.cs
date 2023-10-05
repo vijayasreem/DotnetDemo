@@ -1,17 +1,16 @@
 ﻿
-using System;
+using sacraldotnet.DTO;
 using System.Collections.Generic;
 using System.Threading.Tasks;
-using sacraldotnet.DTO;
 
 namespace sacraldotnet.Service
 {
-    public interface IRepository<T>
+    public interface IRepository<TEntity> where TEntity : class
     {
-        Task<T> GetByIdAsync(int id);
-        Task<IEnumerable<T>> GetAllAsync();
-        Task AddAsync(T entity);
-        Task UpdateAsync(T entity);
-        Task DeleteAsync(T entity);
+        Task<IEnumerable<TEntity>> GetAllAsync();
+        Task<TEntity> GetByIdAsync(int id);
+        Task<TEntity> AddAsync(TEntity entity);
+        Task<TEntity> UpdateAsync(TEntity entity);
+        Task DeleteAsync(int id);
     }
 }

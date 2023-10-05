@@ -1,53 +1,39 @@
-﻿namespace sacraldotnet.API
+﻿
+using Microsoft.AspNetCore.Mvc;
+using sacraldotnet.DTO;
+using sacraldotnet.Service;
+
+namespace sacraldotnet.API
 {
-    [Route("api/[controller]")]
     [ApiController]
+    [Route("api/[controller]")]
     public class ReportConfigurationController : ControllerBase
     {
-        private readonly IReportGeneratorService _reportGeneratorService;
+        private readonly IReportGenerator _reportGenerator;
+        private readonly ISchedulerService _schedulerService;
 
-        public ReportConfigurationController(IReportGeneratorService reportGeneratorService)
+        public ReportConfigurationController(IReportGenerator reportGenerator, ISchedulerService schedulerService)
         {
-            _reportGeneratorService = reportGeneratorService;
+            _reportGenerator = reportGenerator;
+            _schedulerService = schedulerService;
         }
 
-        // POST api/reportconfiguration
         [HttpPost]
-        public async Task<IActionResult> Post([FromBody] ReportDeliveryConfiguration reportDeliveryConfiguration)
+        public async Task<IActionResult> ConfigureReportDelivery(ReportDeliveryConfigurationDto configurationDto)
         {
-            if (reportDeliveryConfiguration == null)
+            // Validate the report delivery configuration
+            if (!configurationDto.ValidateDestination() || !configurationDto.ValidateDeliveryConfiguration())
             {
-                return BadRequest("Missing report configuration data");
+                return BadRequest("Invalid report delivery configuration.");
             }
 
-            try
-            {
-                _reportGeneratorService.ValidateDestination();
-                _reportGeneratorService.ValidateDeliveryConfiguration();
+            // Generate the report based on the selected file type
+            await _reportGenerator.GenerateReport(configurationDto.FileType);
 
-                if (reportDeliveryConfiguration.DestinationType == DestinationType.Email)
-                {
-                    await _reportGeneratorService.GenerateReport(FileType.PDF);
-                }
-                else if (reportDeliveryConfiguration.DestinationType == DestinationType.CloudStorage)
-                {
-                    await _reportGeneratorService.GenerateReport(FileType.CSV);
-                }
-                else if (reportDeliveryConfiguration.DestinationType == DestinationType.InternalServer)
-                {
-                    await _reportGeneratorService.GenerateReport(FileType.Excel);
-                }
-                else if (reportDeliveryConfiguration.DestinationType == DestinationType.Custom)
-                {
-                    await _reportGeneratorService.GenerateReport(FileType.Custom);
-                }
+            // Schedule the report generation
+            await _schedulerService.ScheduleReportGeneration();
 
-                return Ok();
-            }
-            catch (Exception e)
-            {
-                return BadRequest(e.Message);
-            }
+            return Ok("Report delivery configuration saved successfully.");
         }
     }
 }
