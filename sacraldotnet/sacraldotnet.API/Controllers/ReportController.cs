@@ -2,59 +2,60 @@
 using Microsoft.AspNetCore.Mvc;
 using sacraldotnet.DTO;
 using sacraldotnet.Service;
+using System;
+using System.Threading.Tasks;
 
 namespace sacraldotnet.API
 {
-    [Route("api/[controller]")]
     [ApiController]
+    [Route("api/[controller]")]
     public class ReportController : ControllerBase
     {
         private readonly IReportGenerator _reportGenerator;
-        private readonly IReportScheduler _reportScheduler;
-        private readonly IReportDeliveryConfigurationValidation _deliveryConfigValidation;
 
-        public ReportController(IReportGenerator reportGenerator, IReportScheduler reportScheduler, IReportDeliveryConfigurationValidation deliveryConfigValidation)
+        public ReportController(IReportGenerator reportGenerator)
         {
             _reportGenerator = reportGenerator;
-            _reportScheduler = reportScheduler;
-            _deliveryConfigValidation = deliveryConfigValidation;
         }
 
-        [HttpPost("GenerateReport")]
-        public async Task<IActionResult> GenerateReport([FromBody] ReportRequestDTO request)
+        [HttpPost]
+        public async Task<IActionResult> GenerateReport(ReportRequestDto request)
         {
-            if (!_deliveryConfigValidation.ValidateDestination(request.DeliveryConfiguration))
-            {
-                return BadRequest("Invalid delivery configuration");
-            }
-
             try
             {
-                await _reportGenerator.GenerateReport(request.FileType, request.DeliveryConfiguration);
+                var deliveryConfiguration = new ReportDeliveryConfiguration
+                {
+                    DestinationType = request.DestinationType,
+                    DestinationAddress = request.DestinationAddress
+                };
+
+                if (!deliveryConfiguration.ValidateDestination())
+                {
+                    return BadRequest("Invalid destination address");
+                }
+
+                var fileType = GetFileType(request.FileType);
+
+                await _reportGenerator.GenerateReport(fileType, deliveryConfiguration);
 
                 return Ok("Report generated successfully");
             }
             catch (Exception ex)
             {
-                // Handle exception and return appropriate error response
-                return StatusCode(500, ex.Message);
+                return StatusCode(500, $"An error occurred: {ex.Message}");
             }
         }
 
-        [HttpPost("ScheduleReports")]
-        public async Task<IActionResult> ScheduleReports()
+        private FileType GetFileType(string fileType)
         {
-            try
+            return fileType switch
             {
-                await _reportScheduler.ScheduleReports();
-
-                return Ok("Reports scheduled successfully");
-            }
-            catch (Exception ex)
-            {
-                // Handle exception and return appropriate error response
-                return StatusCode(500, ex.Message);
-            }
+                "PDF" => FileType.PDF,
+                "CSV" => FileType.CSV,
+                "Excel" => FileType.Excel,
+                "Custom" => FileType.Custom,
+                _ => throw new ArgumentException("Invalid file type"),
+            };
         }
     }
 }

@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Threading.Tasks;
 
-namespace ReportSchedulingTool
+namespace SchedulingConfigurationTool
 {
     public enum FileType
     {
@@ -19,84 +19,91 @@ namespace ReportSchedulingTool
         InternalServer
     }
 
-    public class ReportDeliveryConfiguration
+    public interface IReportDeliveryConfiguration
+    {
+        DestinationType DestinationType { get; set; }
+        string DestinationAddress { get; set; }
+
+        bool ValidateDestination();
+        bool ValidateDeliveryConfiguration();
+    }
+
+    public class ReportDeliveryConfiguration : IReportDeliveryConfiguration
     {
         public DestinationType DestinationType { get; set; }
         public string DestinationAddress { get; set; }
 
         public bool ValidateDestination()
         {
-            // Validate the DestinationAddress based on the selected DestinationType
-            // Add your validation logic here
-            return true; // Return true if validation is successful, otherwise false
+            // TODO: Implement destination validation logic
+            return true;
+        }
+
+        public bool ValidateDeliveryConfiguration()
+        {
+            // TODO: Implement delivery configuration validation logic
+            return true;
         }
     }
 
-    public interface IReportGenerator
+    public class ReportGenerator
     {
-        Task GenerateReport(FileType fileType, ReportDeliveryConfiguration deliveryConfiguration);
-    }
-
-    public class ReportGenerator : IReportGenerator
-    {
-        public async Task GenerateReport(FileType fileType, ReportDeliveryConfiguration deliveryConfiguration)
+        public async Task GenerateReport(FileType fileType, IReportDeliveryConfiguration deliveryConfiguration)
         {
             switch (fileType)
             {
                 case FileType.PDF:
-                    // Logic for generating PDF report
+                    // TODO: Generate PDF report
                     break;
                 case FileType.CSV:
-                    // Logic for generating CSV report
+                    // TODO: Generate CSV report
                     break;
                 case FileType.Excel:
-                    // Logic for generating Excel report
+                    // TODO: Generate Excel report
                     break;
                 case FileType.Custom:
-                    // Prompt user to specify the custom format for the report
-                    string customFormat = await GetCustomFormatFromUser();
-                    // Logic for generating custom format report
+                    // TODO: Generate custom report based on user-defined format
                     break;
                 default:
-                    throw new ArgumentOutOfRangeException(nameof(fileType), fileType, null);
+                    throw new ArgumentException("Invalid file type.");
             }
-        }
 
-        private Task<string> GetCustomFormatFromUser()
-        {
-            // Implement logic to prompt user for custom format input
-            return Task.FromResult(""); // Replace with actual user input
+            await Task.Delay(1000); // Simulating report generation delay
+
+            if (!deliveryConfiguration.ValidateDeliveryConfiguration())
+            {
+                throw new Exception("Invalid delivery configuration.");
+            }
+
+            // TODO: Implement report delivery logic based on deliveryConfiguration
         }
     }
 
-    public class ReportScheduler
+    public class SchedulingConfigurationTool
     {
-        private IReportGenerator reportGenerator;
-
-        public ReportScheduler(IReportGenerator reportGenerator)
+        public async Task ConfigureScheduling()
         {
-            this.reportGenerator = reportGenerator;
-        }
+            FileType selectedFileType = FileType.Custom;
 
-        public async Task ScheduleReports()
-        {
-            // Logic for scheduling reports
-            FileType fileType = await GetFileTypeFromUser();
-            ReportDeliveryConfiguration deliveryConfiguration = await GetDeliveryConfigurationFromUser();
+            if (selectedFileType == FileType.Custom)
+            {
+                string customFormat = "Custom format"; // Prompt user to specify custom format
+                Console.WriteLine("Custom format: " + customFormat);
+            }
 
-            await reportGenerator.GenerateReport(fileType, deliveryConfiguration);
-        }
+            IReportDeliveryConfiguration deliveryConfiguration = new ReportDeliveryConfiguration()
+            {
+                DestinationType = DestinationType.Email,
+                DestinationAddress = "example@example.com" // Prompt user to enter destination address
+            };
 
-        private Task<FileType> GetFileTypeFromUser()
-        {
-            // Implement logic to prompt user for file type selection
-            return Task.FromResult(FileType.PDF); // Replace with actual user input
-        }
+            if (!deliveryConfiguration.ValidateDestination())
+            {
+                throw new Exception("Invalid destination configuration.");
+            }
 
-        private Task<ReportDeliveryConfiguration> GetDeliveryConfigurationFromUser()
-        {
-            // Implement logic to prompt user for delivery configuration
-            return Task.FromResult(new ReportDeliveryConfiguration()); // Replace with actual user input
+            ReportGenerator reportGenerator = new ReportGenerator();
+            await reportGenerator.GenerateReport(selectedFileType, deliveryConfiguration);
         }
     }
 
@@ -104,9 +111,15 @@ namespace ReportSchedulingTool
     {
         public static async Task Main(string[] args)
         {
-            IReportGenerator reportGenerator = new ReportGenerator();
-            ReportScheduler reportScheduler = new ReportScheduler(reportGenerator);
-            await reportScheduler.ScheduleReports();
+            try
+            {
+                SchedulingConfigurationTool schedulingConfigurationTool = new SchedulingConfigurationTool();
+                await schedulingConfigurationTool.ConfigureScheduling();
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine("An error occurred: " + ex.Message);
+            }
         }
     }
 }

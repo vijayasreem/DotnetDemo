@@ -10,64 +10,62 @@
     public class ReportDeliveryConfigurationModel
     {
         public DestinationType DestinationType { get; set; }
+
         public string DestinationAddress { get; set; }
-    }
 
-    public class ReportDeliveryConfigurationValidator
-    {
-        public bool ValidateDestination(ReportDeliveryConfigurationModel config)
+        public void ValidateDestination()
         {
-            // Validation logic
-            return true;
+            // TODO: Implement validation logic for DestinationAddress based on DestinationType
         }
     }
 
-    public class ReportDeliveryConfigurationCustom
+    public class ReportGeneratorModel
     {
-        public int[] DaysOfWeek { get; set; }
-        public int[] DaysOfMonth { get; set; }
+        public FileType FileType { get; set; }
+
+        public void GenerateReport()
+        {
+            // TODO: Implement logic for generating reports based on FileType
+        }
     }
 
-    public class ReportDeliveryConfigurationTime
+    public class ReportDeliveryConfigurationModel
     {
+        public FileType FileType { get; set; }
+
+        public string DestinationAddress { get; set; }
+
+        public void ValidateDestination()
+        {
+            // TODO: Implement validation logic for DestinationAddress based on FileType
+        }
+    }
+
+    public class ReportDeliveryConfigurationModel
+    {
+        public FrequencyType FrequencyType { get; set; }
+
+        public DayOfWeek DayOfWeek { get; set; }
+
+        public DayOfMonth DayOfMonth { get; set; }
+
         public TimeSpan DeliveryTime { get; set; }
-    }
 
-    public class ReportDeliveryConfigurationValidatorCustom
-    {
-        public bool ValidateDeliveryConfiguration(ReportDeliveryConfigurationCustom config)
+        public void ValidateDeliveryConfiguration()
         {
-            // Validation logic
-            return true;
+            // TODO: Implement validation logic for FrequencyType, DayOfWeek, DayOfMonth, and DeliveryTime
         }
     }
 
-    public class ReportGenerator
+    public class SharePointIntegrationModel
     {
-        public enum FileType
-        {
-            PDF,
-            CSV,
-            Excel,
-            Custom
-        }
+        public string SharePointUrl { get; set; }
 
-        public void GenerateReport(FileType fileType)
-        {
-            // Report generation logic
-        }
-    }
-
-    public class SharePointIntegration
-    {
-        public SharePointIntegration(string siteUrl, string libraryName)
-        {
-            // Initialization logic
-        }
+        public string DocumentLibraryName { get; set; }
 
         public void DeliverGLReport(string clientName, DateTime deliveryDate)
         {
-            // Delivery logic
+            // TODO: Implement logic for delivering GL report to SharePoint
         }
     }
 }

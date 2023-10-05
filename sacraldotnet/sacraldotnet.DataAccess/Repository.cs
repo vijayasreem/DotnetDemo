@@ -1,21 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Data;
 using System.Threading.Tasks;
 using Npgsql;
 
 namespace sacraldotnet
 {
-    public interface IRepository<TEntity> where TEntity : class
-    {
-        Task<TEntity> GetByIdAsync(int id);
-        Task<IEnumerable<TEntity>> GetAllAsync();
-        Task<int> InsertAsync(TEntity entity);
-        Task<int> UpdateAsync(TEntity entity);
-        Task<int> DeleteAsync(int id);
-    }
-
-    public class Repository<TEntity> : IRepository<TEntity> where TEntity : class
+    public class Repository<T> : IRepository<T>
     {
         private readonly string _connectionString;
 
@@ -24,148 +14,126 @@ namespace sacraldotnet
             _connectionString = connectionString;
         }
 
-        public async Task<TEntity> GetByIdAsync(int id)
+        public async Task<T> GetByIdAsync(int id)
         {
             using (var connection = new NpgsqlConnection(_connectionString))
             {
                 await connection.OpenAsync();
-                var command = connection.CreateCommand();
-                command.CommandText = "SELECT * FROM " + typeof(TEntity).Name + " WHERE Id = @Id";
-                command.Parameters.AddWithValue("@Id", id);
-
-                using (var reader = await command.ExecuteReaderAsync())
-                {
-                    if (await reader.ReadAsync())
-                    {
-                        return MapEntity(reader);
-                    }
-                }
+                // TODO: Implement logic to fetch entity by id from the database
+                throw new NotImplementedException();
             }
-
-            return null;
         }
 
-        public async Task<IEnumerable<TEntity>> GetAllAsync()
-        {
-            var entities = new List<TEntity>();
-
-            using (var connection = new NpgsqlConnection(_connectionString))
-            {
-                await connection.OpenAsync();
-                var command = connection.CreateCommand();
-                command.CommandText = "SELECT * FROM " + typeof(TEntity).Name;
-
-                using (var reader = await command.ExecuteReaderAsync())
-                {
-                    while (await reader.ReadAsync())
-                    {
-                        entities.Add(MapEntity(reader));
-                    }
-                }
-            }
-
-            return entities;
-        }
-
-        public async Task<int> InsertAsync(TEntity entity)
+        public async Task<IEnumerable<T>> GetAllAsync()
         {
             using (var connection = new NpgsqlConnection(_connectionString))
             {
                 await connection.OpenAsync();
-                var command = connection.CreateCommand();
-                command.CommandText = "INSERT INTO " + typeof(TEntity).Name + " VALUES (@Id, @Name)";
-                command.Parameters.AddWithValue("@Id", GetEntityId(entity));
-                command.Parameters.AddWithValue("@Name", GetEntityName(entity));
-
-                return await command.ExecuteNonQueryAsync();
+                // TODO: Implement logic to fetch all entities from the database
+                throw new NotImplementedException();
             }
         }
 
-        public async Task<int> UpdateAsync(TEntity entity)
+        public async Task AddAsync(T entity)
         {
             using (var connection = new NpgsqlConnection(_connectionString))
             {
                 await connection.OpenAsync();
-                var command = connection.CreateCommand();
-                command.CommandText = "UPDATE " + typeof(TEntity).Name + " SET Name = @Name WHERE Id = @Id";
-                command.Parameters.AddWithValue("@Id", GetEntityId(entity));
-                command.Parameters.AddWithValue("@Name", GetEntityName(entity));
-
-                return await command.ExecuteNonQueryAsync();
+                // TODO: Implement logic to add entity to the database
+                throw new NotImplementedException();
             }
         }
 
-        public async Task<int> DeleteAsync(int id)
+        public async Task UpdateAsync(T entity)
         {
             using (var connection = new NpgsqlConnection(_connectionString))
             {
                 await connection.OpenAsync();
-                var command = connection.CreateCommand();
-                command.CommandText = "DELETE FROM " + typeof(TEntity).Name + " WHERE Id = @Id";
-                command.Parameters.AddWithValue("@Id", id);
-
-                return await command.ExecuteNonQueryAsync();
+                // TODO: Implement logic to update entity in the database
+                throw new NotImplementedException();
             }
         }
 
-        private TEntity MapEntity(IDataReader reader)
+        public async Task DeleteAsync(T entity)
         {
-            // Map the data reader to the entity object
-            return null;
-        }
-
-        private int GetEntityId(TEntity entity)
-        {
-            // Get the entity ID
-            return 0;
-        }
-
-        private string GetEntityName(TEntity entity)
-        {
-            // Get the entity name
-            return null;
+            using (var connection = new NpgsqlConnection(_connectionString))
+            {
+                await connection.OpenAsync();
+                // TODO: Implement logic to delete entity from the database
+                throw new NotImplementedException();
+            }
         }
     }
 
-    public class ReportRepository : IRepository<Report>
+    public enum DestinationType
     {
-        private readonly Repository<Report> _repository;
+        Email,
+        CloudStorage,
+        InternalServer
+    }
 
-        public ReportRepository(string connectionString)
-        {
-            _repository = new Repository<Report>(connectionString);
-        }
+    public class ReportDeliveryConfigurationModel
+    {
+        public DestinationType DestinationType { get; set; }
+        public string DestinationAddress { get; set; }
 
-        public async Task<Report> GetByIdAsync(int id)
+        public void ValidateDestination()
         {
-            return await _repository.GetByIdAsync(id);
-        }
-
-        public async Task<IEnumerable<Report>> GetAllAsync()
-        {
-            return await _repository.GetAllAsync();
-        }
-
-        public async Task<int> InsertAsync(Report entity)
-        {
-            return await _repository.InsertAsync(entity);
-        }
-
-        public async Task<int> UpdateAsync(Report entity)
-        {
-            return await _repository.UpdateAsync(entity);
-        }
-
-        public async Task<int> DeleteAsync(int id)
-        {
-            return await _repository.DeleteAsync(id);
+            // TODO: Implement validation logic for DestinationAddress based on DestinationType
         }
     }
 
-    public class Report
+    public class ReportGeneratorModel
     {
-        public int Id { get; set; }
-        public string Name { get; set; }
-        // Add additional report properties as needed
+        public FileType FileType { get; set; }
+
+        public void GenerateReport()
+        {
+            // TODO: Implement logic for generating reports based on FileType
+        }
+    }
+
+    public enum FileType
+    {
+        PDF,
+        CSV,
+        Excel,
+        Custom
+    }
+
+    public enum FrequencyType
+    {
+        Weekly,
+        Monthly,
+        Custom
+    }
+
+    public class DeliveryConfigurationModel
+    {
+        public FrequencyType FrequencyType { get; set; }
+        public DayOfWeek DayOfWeek { get; set; }
+        public DayOfMonth DayOfMonth { get; set; }
+        public TimeSpan DeliveryTime { get; set; }
+
+        public void ValidateDeliveryConfiguration()
+        {
+            // TODO: Implement validation logic for FrequencyType, DayOfWeek, DayOfMonth, and DeliveryTime
+        }
+    }
+
+    public class SharePointIntegrationModel
+    {
+        public string SharePointUrl { get; set; }
+        public string DocumentLibraryName { get; set; }
+
+        public void DeliverGLReport(string clientName, DateTime deliveryDate)
+        {
+            // TODO: Implement logic for delivering GL report to SharePoint
+        }
+    }
+
+    public class DayOfMonth
+    {
+        public int Day { get; set; }
     }
 }
