@@ -6056,11 +6056,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "D:\\Amar\\20231005_Debug\\Apps\\1\\1712\\202310062954\\sacraldotnet\\sacraldotnet.API\\sacraldotnet.API.csproj",
+      "projectUniqueName": "D:\\Amar\\20231005_Debug\\Apps\\1\\1713\\202310064045\\sacraldotnet\\sacraldotnet.API\\sacraldotnet.API.csproj",
       "projectName": "sacraldotnet.API",
-      "projectPath": "D:\\Amar\\20231005_Debug\\Apps\\1\\1712\\202310062954\\sacraldotnet\\sacraldotnet.API\\sacraldotnet.API.csproj",
+      "projectPath": "D:\\Amar\\20231005_Debug\\Apps\\1\\1713\\202310064045\\sacraldotnet\\sacraldotnet.API\\sacraldotnet.API.csproj",
       "packagesPath": "C:\\Users\\mmadipally\\.nuget\\packages\\",
-      "outputPath": "D:\\Amar\\20231005_Debug\\Apps\\1\\1712\\202310062954\\sacraldotnet\\sacraldotnet.API\\obj\\",
+      "outputPath": "D:\\Amar\\20231005_Debug\\Apps\\1\\1713\\202310064045\\sacraldotnet\\sacraldotnet.API\\obj\\",
       "projectStyle": "PackageReference",
       "configFilePaths": [
         "C:\\Users\\mmadipally\\AppData\\Roaming\\NuGet\\NuGet.Config"
@@ -6075,11 +6075,11 @@
         "net7.0": {
           "targetAlias": "net7.0",
           "projectReferences": {
-            "D:\\Amar\\20231005_Debug\\Apps\\1\\1712\\202310062954\\sacraldotnet\\sacraldotnet.DTO\\sacraldotnet.DTO.csproj": {
-              "projectPath": "D:\\Amar\\20231005_Debug\\Apps\\1\\1712\\202310062954\\sacraldotnet\\sacraldotnet.DTO\\sacraldotnet.DTO.csproj"
+            "D:\\Amar\\20231005_Debug\\Apps\\1\\1713\\202310064045\\sacraldotnet\\sacraldotnet.DTO\\sacraldotnet.DTO.csproj": {
+              "projectPath": "D:\\Amar\\20231005_Debug\\Apps\\1\\1713\\202310064045\\sacraldotnet\\sacraldotnet.DTO\\sacraldotnet.DTO.csproj"
             },
-            "D:\\Amar\\20231005_Debug\\Apps\\1\\1712\\202310062954\\sacraldotnet\\sacraldotnet.Service\\sacraldotnet.Service.csproj": {
-              "projectPath": "D:\\Amar\\20231005_Debug\\Apps\\1\\1712\\202310062954\\sacraldotnet\\sacraldotnet.Service\\sacraldotnet.Service.csproj"
+            "D:\\Amar\\20231005_Debug\\Apps\\1\\1713\\202310064045\\sacraldotnet\\sacraldotnet.Service\\sacraldotnet.Service.csproj": {
+              "projectPath": "D:\\Amar\\20231005_Debug\\Apps\\1\\1713\\202310064045\\sacraldotnet\\sacraldotnet.Service\\sacraldotnet.Service.csproj"
             }
           }
         }
