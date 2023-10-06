@@ -1,105 +1,173 @@
 ﻿
+using System;
+using System.IO;
+using System.Net.Mail;
+using System.Text;
+using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using sacraldotnet.DTO;
 using sacraldotnet.Service;
-using System;
-using System.Collections.Generic;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace sacraldotnet.API
 {
     [ApiController]
-    [Route("api/[controller]")]
+    [Route("api/vendors")]
     public class VendorController : ControllerBase
     {
         private readonly IVendorService _vendorService;
+        private readonly string _sharepointUrl;
+        private readonly string _sharepointUsername;
+        private readonly string _sharepointPassword;
+        private readonly string _emailUsername;
+        private readonly string _emailPassword;
+        private readonly string _ftpHost;
+        private readonly string _ftpUsername;
+        private readonly string _ftpPassword;
 
         public VendorController(IVendorService vendorService)
         {
             _vendorService = vendorService;
+            _sharepointUrl = Configuration["SharepointUrl"];
+            _sharepointUsername = Configuration["SharepointUsername"];
+            _sharepointPassword = Configuration["SharepointPassword"];
+            _emailUsername = Configuration["EmailUsername"];
+            _emailPassword = Configuration["EmailPassword"];
+            _ftpHost = Configuration["FtpHost"];
+            _ftpUsername = Configuration["FtpUsername"];
+            _ftpPassword = Configuration["FtpPassword"];
         }
 
-        [HttpGet("fetch/{sector}")]
-        public async Task<ActionResult<List<Vendor>>> FetchVendorsBySector(string sector)
+        [HttpPost("fetch/{sector}")]
+        public async Task<IActionResult> FetchVendorsBySector(string sector)
+        {
+            await _vendorService.FetchVendorsBySector(sector);
+            return Ok();
+        }
+
+        [HttpGet("schedule")]
+        public async Task<IActionResult> FetchScheduleInformation()
+        {
+            await _vendorService.FetchScheduleInformation();
+            return Ok();
+        }
+
+        [HttpGet("start-timer")]
+        public async Task<IActionResult> StartTimer()
+        {
+            await _vendorService.StartTimer();
+            return Ok();
+        }
+
+        private async Task<bool> FetchDataFromDatabase()
+        {
+            // ADO.NET code to fetch data from the database
+            // Use the fetched data to generate vendors list
+
+            return true;
+        }
+
+        private byte[] GeneratePdfFile(VendorData vendorData)
+        {
+            // iTextSharp code to generate PDF file with vendor data
+            // Return the PDF file content as byte array
+
+            return null;
+        }
+
+        private byte[] GenerateCsvFile(VendorData vendorData)
+        {
+            // StringBuilder code to generate CSV file with vendor data
+            // Return the CSV file content as byte array
+
+            return null;
+        }
+
+        private async Task<bool> SendEmailWithAttachment(string recipient, byte[] attachmentContent, string attachmentName)
         {
             try
             {
-                var vendors = await _vendorService.FetchVendorsBySector(sector);
-                return Ok(vendors);
+                MailMessage mailMessage = new MailMessage();
+                mailMessage.From = new MailAddress(_emailUsername);
+                mailMessage.To.Add(recipient);
+                mailMessage.Subject = "Vendor Data";
+                mailMessage.Body = "Please find the attached vendor data.";
+
+                using (MemoryStream memoryStream = new MemoryStream(attachmentContent))
+                {
+                    mailMessage.Attachments.Add(new Attachment(memoryStream, attachmentName));
+
+                    using (SmtpClient smtpClient = new SmtpClient("smtp.gmail.com"))
+                    {
+                        smtpClient.Port = 587;
+                        smtpClient.Credentials = new System.Net.NetworkCredential(_emailUsername, _emailPassword);
+                        smtpClient.EnableSsl = true;
+                        await smtpClient.SendMailAsync(mailMessage);
+                    }
+                }
+
+                return true;
             }
             catch (Exception ex)
             {
-                return StatusCode(500, ex.Message);
+                // Handle exception here
+                return false;
             }
         }
 
-        [HttpGet("generate-pdf")]
-        public async Task<IActionResult> GeneratePDF()
+        private async Task<bool> UploadFileToFtpServer(byte[] fileContent, string fileName)
         {
-            // TODO: Implement code to generate PDF file with vendor data using iTextSharp
-            // Return PDF file content
-            return Ok();
+            try
+            {
+                using (FtpClient ftpClient = new FtpClient(_ftpHost, _ftpUsername, _ftpPassword))
+                {
+                    await ftpClient.UploadFileAsync(fileContent, fileName);
+                }
+
+                return true;
+            }
+            catch (Exception ex)
+            {
+                // Handle exception here
+                return false;
+            }
         }
 
-        [HttpGet("generate-csv")]
-        public async Task<IActionResult> GenerateCSV()
+        private async Task<bool> UploadFileToSharepoint(byte[] fileContent, string fileName)
         {
-            // TODO: Implement code to generate CSV file with vendor data using StringBuilder
-            // Return CSV file content
-            return Ok();
+            try
+            {
+                using (SharepointClient sharepointClient = new SharepointClient(_sharepointUrl, _sharepointUsername, _sharepointPassword))
+                {
+                    await sharepointClient.UploadFileAsync(fileContent, fileName);
+                }
+
+                return true;
+            }
+            catch (Exception ex)
+            {
+                // Handle exception here
+                return false;
+            }
         }
 
-        [HttpGet("send-email")]
-        public async Task<IActionResult> SendEmail()
+        private async Task<VendorRequest> GetRequestFromDatabase()
         {
-            // TODO: Implement code to send email with attachment
-            // Get credentials from config file
-            // Return true if email sent successfully, otherwise return false
-            return Ok();
+            // ADO.NET code to fetch request information from the database
+
+            return null;
         }
 
-        [HttpGet("upload-ftp")]
-        public async Task<IActionResult> UploadFTP()
+        public async Task FetchScheduleInformation()
         {
-            // TODO: Implement code to upload file content to FTP server
-            // Get FTP details from config file
-            // Return true if file uploaded successfully, otherwise return false
-            return Ok();
+            // ADO.NET code to fetch schedule information from the database
+
+            // Check if schedule date and time crossed the current date and time
+            // If yes, call the request fetch method
         }
 
-        [HttpGet("upload-sharepoint")]
-        public async Task<IActionResult> UploadSharepoint()
+        public void TimerCallback(object state)
         {
-            // TODO: Implement code to upload file content to SharePoint server
-            // Get SharePoint details from config file
-            // Return true if file uploaded successfully, otherwise return false
-            return Ok();
-        }
-
-        [HttpGet("process-request")]
-        public async Task<IActionResult> ProcessRequest()
-        {
-            // TODO: Implement code to get request information from database
-            // Call file generate method based on the request
-            // Return appropriate response
-            return Ok();
-        }
-
-        [HttpGet("fetch-schedule")]
-        public async Task<IActionResult> FetchSchedule()
-        {
-            // TODO: Implement code to fetch schedule information from database
-            // Call request fetch method if schedule date and time crossed the current date and time matched
-            // Return appropriate response
-            return Ok();
-        }
-
-        [HttpGet("timer")]
-        public async Task<IActionResult> Timer()
-        {
-            // TODO: Implement code for 1 minute timer to call fetch schedule information method
-            return Ok();
+            FetchScheduleInformation().Wait();
         }
     }
 }

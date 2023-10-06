@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "D:\\Amar\\20231005_Debug\\Apps\\1\\1713\\202310064045\\sacraldotnet\\sacraldotnet.DataAccess\\sacraldotnet.DataAccess.csproj": {}
+    "D:\\Amar\\20231005_Debug\\Apps\\1\\1714\\202310064953\\sacraldotnet\\sacraldotnet.DataAccess\\sacraldotnet.DataAccess.csproj": {}
   },
   "projects": {
-    "D:\\Amar\\20231005_Debug\\Apps\\1\\1713\\202310064045\\sacraldotnet\\sacraldotnet.DataAccess\\sacraldotnet.DataAccess.csproj": {
+    "D:\\Amar\\20231005_Debug\\Apps\\1\\1714\\202310064953\\sacraldotnet\\sacraldotnet.DataAccess\\sacraldotnet.DataAccess.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "D:\\Amar\\20231005_Debug\\Apps\\1\\1713\\202310064045\\sacraldotnet\\sacraldotnet.DataAccess\\sacraldotnet.DataAccess.csproj",
+        "projectUniqueName": "D:\\Amar\\20231005_Debug\\Apps\\1\\1714\\202310064953\\sacraldotnet\\sacraldotnet.DataAccess\\sacraldotnet.DataAccess.csproj",
         "projectName": "sacraldotnet.DataAccess",
-        "projectPath": "D:\\Amar\\20231005_Debug\\Apps\\1\\1713\\202310064045\\sacraldotnet\\sacraldotnet.DataAccess\\sacraldotnet.DataAccess.csproj",
+        "projectPath": "D:\\Amar\\20231005_Debug\\Apps\\1\\1714\\202310064953\\sacraldotnet\\sacraldotnet.DataAccess\\sacraldotnet.DataAccess.csproj",
         "packagesPath": "C:\\Users\\mmadipally\\.nuget\\packages\\",
-        "outputPath": "D:\\Amar\\20231005_Debug\\Apps\\1\\1713\\202310064045\\sacraldotnet\\sacraldotnet.DataAccess\\obj\\",
+        "outputPath": "D:\\Amar\\20231005_Debug\\Apps\\1\\1714\\202310064953\\sacraldotnet\\sacraldotnet.DataAccess\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
           "C:\\Users\\mmadipally\\AppData\\Roaming\\NuGet\\NuGet.Config"
@@ -26,8 +26,8 @@
           "net7.0": {
             "targetAlias": "net7.0",
             "projectReferences": {
-              "D:\\Amar\\20231005_Debug\\Apps\\1\\1713\\202310064045\\sacraldotnet\\sacraldotnet.DTO\\sacraldotnet.DTO.csproj": {
-                "projectPath": "D:\\Amar\\20231005_Debug\\Apps\\1\\1713\\202310064045\\sacraldotnet\\sacraldotnet.DTO\\sacraldotnet.DTO.csproj"
+              "D:\\Amar\\20231005_Debug\\Apps\\1\\1714\\202310064953\\sacraldotnet\\sacraldotnet.DTO\\sacraldotnet.DTO.csproj": {
+                "projectPath": "D:\\Amar\\20231005_Debug\\Apps\\1\\1714\\202310064953\\sacraldotnet\\sacraldotnet.DTO\\sacraldotnet.DTO.csproj"
               }
             }
           }
@@ -67,14 +67,14 @@
         }
       }
     },
-    "D:\\Amar\\20231005_Debug\\Apps\\1\\1713\\202310064045\\sacraldotnet\\sacraldotnet.DTO\\sacraldotnet.DTO.csproj": {
+    "D:\\Amar\\20231005_Debug\\Apps\\1\\1714\\202310064953\\sacraldotnet\\sacraldotnet.DTO\\sacraldotnet.DTO.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "D:\\Amar\\20231005_Debug\\Apps\\1\\1713\\202310064045\\sacraldotnet\\sacraldotnet.DTO\\sacraldotnet.DTO.csproj",
+        "projectUniqueName": "D:\\Amar\\20231005_Debug\\Apps\\1\\1714\\202310064953\\sacraldotnet\\sacraldotnet.DTO\\sacraldotnet.DTO.csproj",
         "projectName": "sacraldotnet.DTO",
-        "projectPath": "D:\\Amar\\20231005_Debug\\Apps\\1\\1713\\202310064045\\sacraldotnet\\sacraldotnet.DTO\\sacraldotnet.DTO.csproj",
+        "projectPath": "D:\\Amar\\20231005_Debug\\Apps\\1\\1714\\202310064953\\sacraldotnet\\sacraldotnet.DTO\\sacraldotnet.DTO.csproj",
         "packagesPath": "C:\\Users\\mmadipally\\.nuget\\packages\\",
-        "outputPath": "D:\\Amar\\20231005_Debug\\Apps\\1\\1713\\202310064045\\sacraldotnet\\sacraldotnet.DTO\\obj\\",
+        "outputPath": "D:\\Amar\\20231005_Debug\\Apps\\1\\1714\\202310064953\\sacraldotnet\\sacraldotnet.DTO\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
           "C:\\Users\\mmadipally\\AppData\\Roaming\\NuGet\\NuGet.Config"

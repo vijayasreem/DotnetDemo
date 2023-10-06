@@ -70,3 +70,6 @@ D:\Amar\20231005_Debug\Apps\1\1713\202310064045\sacraldotnet\sacraldotnet.DataAc
 D:\Amar\20231005_Debug\Apps\1\1713\202310064045\sacraldotnet\sacraldotnet.DataAccess\obj\Debug\net7.0\sacraldotnet.DataAccess.dll
 D:\Amar\20231005_Debug\Apps\1\1713\202310064045\sacraldotnet\sacraldotnet.DataAccess\obj\Debug\net7.0\refint\sacraldotnet.DataAccess.dll
 D:\Amar\20231005_Debug\Apps\1\1713\202310064045\sacraldotnet\sacraldotnet.DataAccess\obj\Debug\net7.0\sacraldotnet.DataAccess.pdb
+D:\Amar\20231005_Debug\Apps\1\1714\202310064953\sacraldotnet\sacraldotnet.DataAccess\obj\Debug\net7.0\sacraldotnet.DataAccess.dll
+D:\Amar\20231005_Debug\Apps\1\1714\202310064953\sacraldotnet\sacraldotnet.DataAccess\obj\Debug\net7.0\refint\sacraldotnet.DataAccess.dll
+D:\Amar\20231005_Debug\Apps\1\1714\202310064953\sacraldotnet\sacraldotnet.DataAccess\obj\Debug\net7.0\sacraldotnet.DataAccess.pdb

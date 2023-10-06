@@ -1,4 +1,6 @@
 ﻿public interface IVendorService
 {
-    Task<List<Vendor>> FetchVendorsBySector(string sector);
+    Task FetchVendorsBySector(string sector);
+    Task FetchScheduleInformation();
+    Task StartTimer();
 }

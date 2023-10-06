@@ -69,3 +69,6 @@ D:\Amar\20231005_Debug\Apps\1\1712\202310062954\sacraldotnet\sacraldotnet.API\ob
 D:\Amar\20231005_Debug\Apps\1\1713\202310064045\sacraldotnet\sacraldotnet.API\obj\Debug\net7.0\sacraldotnet.API.dll
 D:\Amar\20231005_Debug\Apps\1\1713\202310064045\sacraldotnet\sacraldotnet.API\obj\Debug\net7.0\refint\sacraldotnet.API.dll
 D:\Amar\20231005_Debug\Apps\1\1713\202310064045\sacraldotnet\sacraldotnet.API\obj\Debug\net7.0\sacraldotnet.API.pdb
+D:\Amar\20231005_Debug\Apps\1\1714\202310064953\sacraldotnet\sacraldotnet.API\obj\Debug\net7.0\sacraldotnet.API.dll
+D:\Amar\20231005_Debug\Apps\1\1714\202310064953\sacraldotnet\sacraldotnet.API\obj\Debug\net7.0\refint\sacraldotnet.API.dll
+D:\Amar\20231005_Debug\Apps\1\1714\202310064953\sacraldotnet\sacraldotnet.API\obj\Debug\net7.0\sacraldotnet.API.pdb

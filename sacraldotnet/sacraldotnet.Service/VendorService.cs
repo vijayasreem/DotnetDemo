@@ -1,132 +1,203 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Configuration;
+using System.Data;
 using System.Data.SqlClient;
 using System.IO;
 using System.Net;
 using System.Net.Mail;
 using System.Text;
-using System.Timers;
+using System.Threading.Tasks;
 using iTextSharp.text;
 using iTextSharp.text.pdf;
-using System.Threading.Tasks;
 
 public class VendorService : IVendorService
 {
-    private string connectionString;
-    private string ftpServer;
-    private string ftpUsername;
-    private string ftpPassword;
-    private string sharepointUrl;
-    private string sharepointUsername;
-    private string sharepointPassword;
+    private string connectionString = ConfigurationManager.ConnectionStrings["DBConnectionString"].ConnectionString;
+    private string ftpServer = ConfigurationManager.AppSettings["FTPServer"];
+    private string ftpUsername = ConfigurationManager.AppSettings["FTPUsername"];
+    private string ftpPassword = ConfigurationManager.AppSettings["FTPPassword"];
+    private string sharepointUrl = ConfigurationManager.AppSettings["SharepointUrl"];
+    private string sharepointUsername = ConfigurationManager.AppSettings["SharepointUsername"];
+    private string sharepointPassword = ConfigurationManager.AppSettings["SharepointPassword";
 
-    public VendorService()
+    public async Task FetchVendorsBySector(string sector)
     {
-        connectionString = ConfigurationManager.ConnectionStrings["DatabaseConnection"].ConnectionString;
-        ftpServer = ConfigurationManager.AppSettings["FTPServer"];
-        ftpUsername = ConfigurationManager.AppSettings["FTPUsername"];
-        ftpPassword = ConfigurationManager.AppSettings["FTPPassword"];
-        sharepointUrl = ConfigurationManager.AppSettings["SharepointUrl"];
-        sharepointUsername = ConfigurationManager.AppSettings["SharepointUsername"];
-        sharepointPassword = ConfigurationManager.AppSettings["SharepointPassword"];
-    }
-
-    public async Task<List<Vendor>> FetchVendorsBySector(string sector)
-    {
-        List<Vendor> vendors = new List<Vendor>();
-
-        using (SqlConnection connection = new SqlConnection(connectionString))
+        try
         {
-            await connection.OpenAsync();
-
-            using (SqlCommand command = new SqlCommand("SELECT * FROM Vendors WHERE Sector = @Sector", connection))
+            using (SqlConnection connection = new SqlConnection(connectionString))
             {
+                string query = "SELECT Invoice, Account, VendorAccount, VendorName, CustomerAccount, ClientName, AccountLocation, Country, Currency, MethodOfPayment, TermsOfPayment, SalesTaxGroup, CostCenter, MeterPointIdentificationNumber, PurchaseOrder, InvoiceID FROM Vendors WHERE Sector = @Sector";
+                SqlCommand command = new SqlCommand(query, connection);
                 command.Parameters.AddWithValue("@Sector", sector);
 
+                await connection.OpenAsync();
                 using (SqlDataReader reader = await command.ExecuteReaderAsync())
                 {
-                    while (reader.Read())
+                    while (await reader.ReadAsync())
                     {
-                        Vendor vendor = new Vendor
-                        {
-                            Invoice = reader.GetString(0),
-                            Account = reader.GetString(1),
-                            VendorAccount = reader.GetString(2),
-                            VendorName = reader.GetString(3),
-                            CustomerAccount = reader.GetString(4),
-                            ClientName = reader.GetString(5),
-                            AccountLocation = reader.GetString(6),
-                            Country = reader.GetString(7),
-                            Currency = reader.GetString(8),
-                            PaymentMethod = reader.GetString(9),
-                            PaymentTerms = reader.GetString(10),
-                            SalesTaxGroup = reader.GetString(11),
-                            CostCenter = reader.GetString(12),
-                            MeterPointIdentificationNumber = reader.GetString(13),
-                            PurchaseOrder = reader.GetString(14),
-                            InvoiceId = reader.GetInt32(15)
-                        };
-
-                        vendors.Add(vendor);
+                        // Fetch vendor data and process accordingly
                     }
                 }
             }
         }
-
-        return vendors;
+        catch (Exception ex)
+        {
+            // Handle exception
+        }
     }
 
-    private byte[] GeneratePdf(List<Vendor> vendors)
+    public async Task FetchRequestInformation()
     {
-        using (MemoryStream memoryStream = new MemoryStream())
+        try
+        {
+            using (SqlConnection connection = new SqlConnection(connectionString))
+            {
+                string query = "SELECT FileType, DestinationType FROM Requests WHERE ..."; // Add appropriate conditions
+                SqlCommand command = new SqlCommand(query, connection);
+
+                await connection.OpenAsync();
+                using (SqlDataReader reader = await command.ExecuteReaderAsync())
+                {
+                    while (await reader.ReadAsync())
+                    {
+                        string fileType = reader.GetString(0);
+                        string destinationType = reader.GetString(1);
+
+                        if (fileType == "PDF")
+                        {
+                            DataTable data = await FetchDataFromDatabase(); // Implement method to fetch data from database
+                            byte[] fileData = GeneratePdfFile(data);
+
+                            if (destinationType == "EMAIL")
+                            {
+                                string recipient = GetEmailRecipient(); // Implement method to get email recipient
+                                string subject = GetEmailSubject(); // Implement method to get email subject
+                                string body = GetEmailBody(); // Implement method to get email body
+                                SendEmailWithAttachment(recipient, subject, body, fileData, "vendors.pdf");
+                            }
+                            else if (destinationType == "FTP")
+                            {
+                                UploadFileToFtpServer(fileData, "vendors.pdf");
+                            }
+                            else if (destinationType == "SHAREPOINT")
+                            {
+                                UploadFileToSharepoint(fileData, "vendors.pdf");
+                            }
+                        }
+                        else if (fileType == "CSV")
+                        {
+                            DataTable data = await FetchDataFromDatabase(); // Implement method to fetch data from database
+                            byte[] fileData = GenerateCsvFile(data);
+
+                            if (destinationType == "EMAIL")
+                            {
+                                string recipient = GetEmailRecipient(); // Implement method to get email recipient
+                                string subject = GetEmailSubject(); // Implement method to get email subject
+                                string body = GetEmailBody(); // Implement method to get email body
+                                SendEmailWithAttachment(recipient, subject, body, fileData, "vendors.csv");
+                            }
+                            else if (destinationType == "FTP")
+                            {
+                                UploadFileToFtpServer(fileData, "vendors.csv");
+                            }
+                            else if (destinationType == "SHAREPOINT")
+                            {
+                                UploadFileToSharepoint(fileData, "vendors.csv");
+                            }
+                        }
+                    }
+                }
+            }
+        }
+        catch (Exception ex)
+        {
+            // Handle exception
+        }
+    }
+
+    public async Task FetchScheduleInformation()
+    {
+        try
+        {
+            using (SqlConnection connection = new SqlConnection(connectionString))
+            {
+                string query = "SELECT ScheduleDate, ScheduleTime FROM Schedule WHERE ..."; // Add appropriate conditions
+                SqlCommand command = new SqlCommand(query, connection);
+
+                await connection.OpenAsync();
+                using (SqlDataReader reader = await command.ExecuteReaderAsync())
+                {
+                    while (await reader.ReadAsync())
+                    {
+                        DateTime scheduleDateTime = reader.GetDateTime(0).Add(reader.GetTimeSpan(1));
+                        DateTime currentDateTime = DateTime.Now;
+
+                        if (scheduleDateTime <= currentDateTime)
+                        {
+                            await FetchRequestInformation();
+                        }
+                    }
+                }
+            }
+        }
+        catch (Exception ex)
+        {
+            // Handle exception
+        }
+    }
+
+    public async Task StartTimer()
+    {
+        while (true)
+        {
+            await FetchScheduleInformation();
+            await Task.Delay(TimeSpan.FromMinutes(1));
+        }
+    }
+
+    private byte[] GeneratePdfFile(DataTable data)
+    {
+        using (MemoryStream stream = new MemoryStream())
         {
             Document document = new Document();
-            PdfWriter writer = PdfWriter.GetInstance(document, memoryStream);
+            PdfWriter writer = PdfWriter.GetInstance(document, stream);
+
             document.Open();
 
-            // Add vendors data to the PDF document
+            // Generate PDF content using iTextSharp
 
             document.Close();
-            return memoryStream.ToArray();
+
+            return stream.ToArray();
         }
     }
 
-    private byte[] GenerateCsv(List<Vendor> vendors)
+    private byte[] GenerateCsvFile(DataTable data)
     {
-        StringBuilder csvContent = new StringBuilder();
+        StringBuilder sb = new StringBuilder();
 
-        // Generate CSV content from vendors data
+        // Generate CSV content using StringBuilder
 
-        return Encoding.UTF8.GetBytes(csvContent.ToString());
+        return Encoding.UTF8.GetBytes(sb.ToString());
     }
 
-    private bool SendEmail(string recipient, string subject, string body, byte[] attachment)
+    private bool SendEmailWithAttachment(string recipient, string subject, string body, byte[] attachmentData, string attachmentName)
     {
         try
         {
-            using (MailMessage mailMessage = new MailMessage())
+            using (SmtpClient client = new SmtpClient())
             {
-                mailMessage.From = new MailAddress(ConfigurationManager.AppSettings["EmailFrom"]);
-                mailMessage.To.Add(recipient);
-                mailMessage.Subject = subject;
-                mailMessage.Body = body;
+                // Configure SMTP client with credentials from config file
 
-                if (attachment != null)
-                {
-                    using (MemoryStream memoryStream = new MemoryStream(attachment))
-                    {
-                        mailMessage.Attachments.Add(new Attachment(memoryStream, "VendorsData.pdf"));
-                        // For CSV attachment, change the file name and content type accordingly
-                    }
-                }
+                MailMessage message = new MailMessage();
+                message.To.Add(recipient);
+                message.Subject = subject;
+                message.Body = body;
 
-                using (SmtpClient smtpClient = new SmtpClient(ConfigurationManager.AppSettings["SMTPServer"]))
+                using (MemoryStream stream = new MemoryStream(attachmentData))
                 {
-                    smtpClient.Port = int.Parse(ConfigurationManager.AppSettings["SMTPPort"]);
-                    smtpClient.Credentials = new NetworkCredential(ConfigurationManager.AppSettings["SMTPUsername"], ConfigurationManager.AppSettings["SMTPPassword"]);
-                    smtpClient.EnableSsl = bool.Parse(ConfigurationManager.AppSettings["EnableSSL"]);
-                    smtpClient.Send(mailMessage);
+                    message.Attachments.Add(new Attachment(stream, attachmentName));
+                    client.Send(message);
                 }
             }
 
@@ -134,31 +205,34 @@ public class VendorService : IVendorService
         }
         catch (Exception ex)
         {
-            Console.WriteLine("Failed to send email: " + ex.Message);
+            // Handle exception
             return false;
         }
     }
 
-    private bool UploadToFtp(byte[] fileContent)
+    private bool UploadFileToFtpServer(byte[] fileData, string fileName)
     {
         try
         {
-            using (WebClient client = new WebClient())
+            FtpWebRequest request = (FtpWebRequest)WebRequest.Create(ftpServer + fileName);
+            request.Method = WebRequestMethods.Ftp.UploadFile;
+            request.Credentials = new NetworkCredential(ftpUsername, ftpPassword);
+
+            using (Stream stream = request.GetRequestStream())
             {
-                client.Credentials = new NetworkCredential(ftpUsername, ftpPassword);
-                client.UploadData(ftpServer, "STOR", fileContent);
+                stream.Write(fileData, 0, fileData.Length);
             }
 
             return true;
         }
         catch (Exception ex)
         {
-            Console.WriteLine("Failed to upload file to FTP server: " + ex.Message);
+            // Handle exception
             return false;
         }
     }
 
-    private bool UploadToSharepoint(byte[] fileContent)
+    private bool UploadFileToSharepoint(byte[] fileData, string fileName)
     {
         try
         {
@@ -168,105 +242,36 @@ public class VendorService : IVendorService
         }
         catch (Exception ex)
         {
-            Console.WriteLine("Failed to upload file to SharePoint server: " + ex.Message);
+            // Handle exception
             return false;
         }
     }
 
-    private async Task ProcessRequest()
+    private async Task<DataTable> FetchDataFromDatabase()
     {
-        using (SqlConnection connection = new SqlConnection(connectionString))
-        {
-            await connection.OpenAsync();
+        // Implement method to fetch data from database
 
-            using (SqlCommand command = new SqlCommand("SELECT FileType, DestinationType FROM Requests", connection))
-            {
-                using (SqlDataReader reader = await command.ExecuteReaderAsync())
-                {
-                    while (reader.Read())
-                    {
-                        string fileType = reader.GetString(0);
-                        string destinationType = reader.GetString(1);
-
-                        List<Vendor> vendors = await FetchVendorsBySector("SomeSector");
-                        byte[] fileContent = null;
-
-                        if (fileType == "PDF")
-                        {
-                            fileContent = GeneratePdf(vendors);
-                        }
-                        else if (fileType == "CSV")
-                        {
-                            fileContent = GenerateCsv(vendors);
-                        }
-
-                        if (destinationType == "EMAIL")
-                        {
-                            SendEmail("recipient@example.com", "Vendors Data", "Please find attached the vendors data.", fileContent);
-                        }
-                        else if (destinationType == "FTP")
-                        {
-                            UploadToFtp(fileContent);
-                        }
-                        else if (destinationType == "SHAREPOINT")
-                        {
-                            UploadToSharepoint(fileContent);
-                        }
-                    }
-                }
-            }
-        }
+        return new DataTable();
     }
 
-    public void StartSchedule()
+    private string GetEmailRecipient()
     {
-        Timer timer = new Timer();
-        timer.Interval = 60000; // 1 minute interval
-        timer.Elapsed += async (sender, e) => await FetchScheduleInformation();
-        timer.Start();
+        // Implement method to get email recipient
+
+        return "";
     }
 
-    private async Task FetchScheduleInformation()
+    private string GetEmailSubject()
     {
-        using (SqlConnection connection = new SqlConnection(connectionString))
-        {
-            await connection.OpenAsync();
+        // Implement method to get email subject
 
-            using (SqlCommand command = new SqlCommand("SELECT ScheduleDate, ScheduleTime FROM Schedule", connection))
-            {
-                using (SqlDataReader reader = await command.ExecuteReaderAsync())
-                {
-                    while (reader.Read())
-                    {
-                        DateTime scheduleDateTime = reader.GetDateTime(0).Add(reader.GetTimeSpan(1));
-
-                        if (scheduleDateTime <= DateTime.Now)
-                        {
-                            await ProcessRequest();
-                        }
-                    }
-                }
-            }
-        }
+        return "";
     }
-}
 
-public class Vendor
-{
-    public string Invoice { get; set; }
-    public string Account { get; set; }
-    public string VendorAccount { get; set; }
-    public string VendorName { get; set; }
-    public string CustomerAccount { get; set; }
-    public string ClientName { get; set; }
-    public string AccountLocation { get; set; }
-    public string Country { get; set; }
-    public string Currency { get; set; }
-    public string PaymentMethod { get; set; }
-    public string PaymentTerms { get; set; }
-    public string SalesTaxGroup { get; set; }
-    public string CostCenter { get; set; }
-    public string MeterPointIdentificationNumber { get; set; }
-    public string PurchaseOrder { get; set; }
-    public int InvoiceId { get; set; }
+    private string GetEmailBody()
+    {
+        // Implement method to get email body
+
+        return "";
+    }
 }

@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "D:\\Amar\\20231005_Debug\\Apps\\1\\1713\\202310064045\\sacraldotnet\\sacraldotnet.DTO\\sacraldotnet.DTO.csproj": {}
+    "D:\\Amar\\20231005_Debug\\Apps\\1\\1714\\202310064953\\sacraldotnet\\sacraldotnet.DTO\\sacraldotnet.DTO.csproj": {}
   },
   "projects": {
-    "D:\\Amar\\20231005_Debug\\Apps\\1\\1713\\202310064045\\sacraldotnet\\sacraldotnet.DTO\\sacraldotnet.DTO.csproj": {
+    "D:\\Amar\\20231005_Debug\\Apps\\1\\1714\\202310064953\\sacraldotnet\\sacraldotnet.DTO\\sacraldotnet.DTO.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "D:\\Amar\\20231005_Debug\\Apps\\1\\1713\\202310064045\\sacraldotnet\\sacraldotnet.DTO\\sacraldotnet.DTO.csproj",
+        "projectUniqueName": "D:\\Amar\\20231005_Debug\\Apps\\1\\1714\\202310064953\\sacraldotnet\\sacraldotnet.DTO\\sacraldotnet.DTO.csproj",
         "projectName": "sacraldotnet.DTO",
-        "projectPath": "D:\\Amar\\20231005_Debug\\Apps\\1\\1713\\202310064045\\sacraldotnet\\sacraldotnet.DTO\\sacraldotnet.DTO.csproj",
+        "projectPath": "D:\\Amar\\20231005_Debug\\Apps\\1\\1714\\202310064953\\sacraldotnet\\sacraldotnet.DTO\\sacraldotnet.DTO.csproj",
         "packagesPath": "C:\\Users\\mmadipally\\.nuget\\packages\\",
-        "outputPath": "D:\\Amar\\20231005_Debug\\Apps\\1\\1713\\202310064045\\sacraldotnet\\sacraldotnet.DTO\\obj\\",
+        "outputPath": "D:\\Amar\\20231005_Debug\\Apps\\1\\1714\\202310064953\\sacraldotnet\\sacraldotnet.DTO\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
           "C:\\Users\\mmadipally\\AppData\\Roaming\\NuGet\\NuGet.Config"
