@@ -1,35 +1,33 @@
 {
   "format": 1,
   "restore": {
-    "E:\\Projects\\Sacral\\dotnet_service\\Application.API\\SacralAI.Code.Scheduler\\bin\\Debug\\Apps\\1\\1702\\202310050252\\sacraldotnet\\sacraldotnet.Service\\sacraldotnet.Service.csproj": {}
+    "D:\\Amar\\20231005_Debug\\Apps\\1\\1712\\202310062954\\sacraldotnet\\sacraldotnet.Service\\sacraldotnet.Service.csproj": {}
   },
   "projects": {
-    "E:\\Projects\\Sacral\\dotnet_service\\Application.API\\SacralAI.Code.Scheduler\\bin\\Debug\\Apps\\1\\1702\\202310050252\\sacraldotnet\\sacraldotnet.DataAccess\\sacraldotnet.DataAccess.csproj": {
+    "D:\\Amar\\20231005_Debug\\Apps\\1\\1712\\202310062954\\sacraldotnet\\sacraldotnet.DataAccess\\sacraldotnet.DataAccess.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "E:\\Projects\\Sacral\\dotnet_service\\Application.API\\SacralAI.Code.Scheduler\\bin\\Debug\\Apps\\1\\1702\\202310050252\\sacraldotnet\\sacraldotnet.DataAccess\\sacraldotnet.DataAccess.csproj",
+        "projectUniqueName": "D:\\Amar\\20231005_Debug\\Apps\\1\\1712\\202310062954\\sacraldotnet\\sacraldotnet.DataAccess\\sacraldotnet.DataAccess.csproj",
         "projectName": "sacraldotnet.DataAccess",
-        "projectPath": "E:\\Projects\\Sacral\\dotnet_service\\Application.API\\SacralAI.Code.Scheduler\\bin\\Debug\\Apps\\1\\1702\\202310050252\\sacraldotnet\\sacraldotnet.DataAccess\\sacraldotnet.DataAccess.csproj",
-        "packagesPath": "C:\\Users\\inoc\\.nuget\\packages\\",
-        "outputPath": "E:\\Projects\\Sacral\\dotnet_service\\Application.API\\SacralAI.Code.Scheduler\\bin\\Debug\\Apps\\1\\1702\\202310050252\\sacraldotnet\\sacraldotnet.DataAccess\\obj\\",
+        "projectPath": "D:\\Amar\\20231005_Debug\\Apps\\1\\1712\\202310062954\\sacraldotnet\\sacraldotnet.DataAccess\\sacraldotnet.DataAccess.csproj",
+        "packagesPath": "C:\\Users\\mmadipally\\.nuget\\packages\\",
+        "outputPath": "D:\\Amar\\20231005_Debug\\Apps\\1\\1712\\202310062954\\sacraldotnet\\sacraldotnet.DataAccess\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
-          "C:\\Users\\inoc\\AppData\\Roaming\\NuGet\\NuGet.Config",
-          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
+          "C:\\Users\\mmadipally\\AppData\\Roaming\\NuGet\\NuGet.Config"
         ],
         "originalTargetFrameworks": [
           "net7.0"
         ],
         "sources": {
-          "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
           "https://api.nuget.org/v3/index.json": {}
         },
         "frameworks": {
           "net7.0": {
             "targetAlias": "net7.0",
             "projectReferences": {
-              "E:\\Projects\\Sacral\\dotnet_service\\Application.API\\SacralAI.Code.Scheduler\\bin\\Debug\\Apps\\1\\1702\\202310050252\\sacraldotnet\\sacraldotnet.DTO\\sacraldotnet.DTO.csproj": {
-                "projectPath": "E:\\Projects\\Sacral\\dotnet_service\\Application.API\\SacralAI.Code.Scheduler\\bin\\Debug\\Apps\\1\\1702\\202310050252\\sacraldotnet\\sacraldotnet.DTO\\sacraldotnet.DTO.csproj"
+              "D:\\Amar\\20231005_Debug\\Apps\\1\\1712\\202310062954\\sacraldotnet\\sacraldotnet.DTO\\sacraldotnet.DTO.csproj": {
+                "projectPath": "D:\\Amar\\20231005_Debug\\Apps\\1\\1712\\202310062954\\sacraldotnet\\sacraldotnet.DTO\\sacraldotnet.DTO.csproj"
               }
             }
           }
@@ -65,28 +63,26 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\7.0.400\\RuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files (x86)\\dotnet\\sdk\\7.0.203\\RuntimeIdentifierGraph.json"
         }
       }
     },
-    "E:\\Projects\\Sacral\\dotnet_service\\Application.API\\SacralAI.Code.Scheduler\\bin\\Debug\\Apps\\1\\1702\\202310050252\\sacraldotnet\\sacraldotnet.DTO\\sacraldotnet.DTO.csproj": {
+    "D:\\Amar\\20231005_Debug\\Apps\\1\\1712\\202310062954\\sacraldotnet\\sacraldotnet.DTO\\sacraldotnet.DTO.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "E:\\Projects\\Sacral\\dotnet_service\\Application.API\\SacralAI.Code.Scheduler\\bin\\Debug\\Apps\\1\\1702\\202310050252\\sacraldotnet\\sacraldotnet.DTO\\sacraldotnet.DTO.csproj",
+        "projectUniqueName": "D:\\Amar\\20231005_Debug\\Apps\\1\\1712\\202310062954\\sacraldotnet\\sacraldotnet.DTO\\sacraldotnet.DTO.csproj",
         "projectName": "sacraldotnet.DTO",
-        "projectPath": "E:\\Projects\\Sacral\\dotnet_service\\Application.API\\SacralAI.Code.Scheduler\\bin\\Debug\\Apps\\1\\1702\\202310050252\\sacraldotnet\\sacraldotnet.DTO\\sacraldotnet.DTO.csproj",
-        "packagesPath": "C:\\Users\\inoc\\.nuget\\packages\\",
-        "outputPath": "E:\\Projects\\Sacral\\dotnet_service\\Application.API\\SacralAI.Code.Scheduler\\bin\\Debug\\Apps\\1\\1702\\202310050252\\sacraldotnet\\sacraldotnet.DTO\\obj\\",
+        "projectPath": "D:\\Amar\\20231005_Debug\\Apps\\1\\1712\\202310062954\\sacraldotnet\\sacraldotnet.DTO\\sacraldotnet.DTO.csproj",
+        "packagesPath": "C:\\Users\\mmadipally\\.nuget\\packages\\",
+        "outputPath": "D:\\Amar\\20231005_Debug\\Apps\\1\\1712\\202310062954\\sacraldotnet\\sacraldotnet.DTO\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
-          "C:\\Users\\inoc\\AppData\\Roaming\\NuGet\\NuGet.Config",
-          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
+          "C:\\Users\\mmadipally\\AppData\\Roaming\\NuGet\\NuGet.Config"
         ],
         "originalTargetFrameworks": [
           "net7.0"
         ],
         "sources": {
-          "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
           "https://api.nuget.org/v3/index.json": {}
         },
         "frameworks": {
@@ -120,39 +116,37 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\7.0.400\\RuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files (x86)\\dotnet\\sdk\\7.0.203\\RuntimeIdentifierGraph.json"
         }
       }
     },
-    "E:\\Projects\\Sacral\\dotnet_service\\Application.API\\SacralAI.Code.Scheduler\\bin\\Debug\\Apps\\1\\1702\\202310050252\\sacraldotnet\\sacraldotnet.Service\\sacraldotnet.Service.csproj": {
+    "D:\\Amar\\20231005_Debug\\Apps\\1\\1712\\202310062954\\sacraldotnet\\sacraldotnet.Service\\sacraldotnet.Service.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "E:\\Projects\\Sacral\\dotnet_service\\Application.API\\SacralAI.Code.Scheduler\\bin\\Debug\\Apps\\1\\1702\\202310050252\\sacraldotnet\\sacraldotnet.Service\\sacraldotnet.Service.csproj",
+        "projectUniqueName": "D:\\Amar\\20231005_Debug\\Apps\\1\\1712\\202310062954\\sacraldotnet\\sacraldotnet.Service\\sacraldotnet.Service.csproj",
         "projectName": "sacraldotnet.Service",
-        "projectPath": "E:\\Projects\\Sacral\\dotnet_service\\Application.API\\SacralAI.Code.Scheduler\\bin\\Debug\\Apps\\1\\1702\\202310050252\\sacraldotnet\\sacraldotnet.Service\\sacraldotnet.Service.csproj",
-        "packagesPath": "C:\\Users\\inoc\\.nuget\\packages\\",
-        "outputPath": "E:\\Projects\\Sacral\\dotnet_service\\Application.API\\SacralAI.Code.Scheduler\\bin\\Debug\\Apps\\1\\1702\\202310050252\\sacraldotnet\\sacraldotnet.Service\\obj\\",
+        "projectPath": "D:\\Amar\\20231005_Debug\\Apps\\1\\1712\\202310062954\\sacraldotnet\\sacraldotnet.Service\\sacraldotnet.Service.csproj",
+        "packagesPath": "C:\\Users\\mmadipally\\.nuget\\packages\\",
+        "outputPath": "D:\\Amar\\20231005_Debug\\Apps\\1\\1712\\202310062954\\sacraldotnet\\sacraldotnet.Service\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
-          "C:\\Users\\inoc\\AppData\\Roaming\\NuGet\\NuGet.Config",
-          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
+          "C:\\Users\\mmadipally\\AppData\\Roaming\\NuGet\\NuGet.Config"
         ],
         "originalTargetFrameworks": [
           "net7.0"
         ],
         "sources": {
-          "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
           "https://api.nuget.org/v3/index.json": {}
         },
         "frameworks": {
           "net7.0": {
             "targetAlias": "net7.0",
             "projectReferences": {
-              "E:\\Projects\\Sacral\\dotnet_service\\Application.API\\SacralAI.Code.Scheduler\\bin\\Debug\\Apps\\1\\1702\\202310050252\\sacraldotnet\\sacraldotnet.DataAccess\\sacraldotnet.DataAccess.csproj": {
-                "projectPath": "E:\\Projects\\Sacral\\dotnet_service\\Application.API\\SacralAI.Code.Scheduler\\bin\\Debug\\Apps\\1\\1702\\202310050252\\sacraldotnet\\sacraldotnet.DataAccess\\sacraldotnet.DataAccess.csproj"
+              "D:\\Amar\\20231005_Debug\\Apps\\1\\1712\\202310062954\\sacraldotnet\\sacraldotnet.DataAccess\\sacraldotnet.DataAccess.csproj": {
+                "projectPath": "D:\\Amar\\20231005_Debug\\Apps\\1\\1712\\202310062954\\sacraldotnet\\sacraldotnet.DataAccess\\sacraldotnet.DataAccess.csproj"
               },
-              "E:\\Projects\\Sacral\\dotnet_service\\Application.API\\SacralAI.Code.Scheduler\\bin\\Debug\\Apps\\1\\1702\\202310050252\\sacraldotnet\\sacraldotnet.DTO\\sacraldotnet.DTO.csproj": {
-                "projectPath": "E:\\Projects\\Sacral\\dotnet_service\\Application.API\\SacralAI.Code.Scheduler\\bin\\Debug\\Apps\\1\\1702\\202310050252\\sacraldotnet\\sacraldotnet.DTO\\sacraldotnet.DTO.csproj"
+              "D:\\Amar\\20231005_Debug\\Apps\\1\\1712\\202310062954\\sacraldotnet\\sacraldotnet.DTO\\sacraldotnet.DTO.csproj": {
+                "projectPath": "D:\\Amar\\20231005_Debug\\Apps\\1\\1712\\202310062954\\sacraldotnet\\sacraldotnet.DTO\\sacraldotnet.DTO.csproj"
               }
             }
           }
@@ -182,7 +176,7 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\7.0.400\\RuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files (x86)\\dotnet\\sdk\\7.0.203\\RuntimeIdentifierGraph.json"
         }
       }
     }

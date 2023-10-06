@@ -36,3 +36,6 @@ E:\Projects\Sacral\dotnet_service\Application.API\SacralAI.Code.Scheduler\bin\De
 E:\Projects\Sacral\dotnet_service\Application.API\SacralAI.Code.Scheduler\bin\Debug\Apps\1\1702\202310050252\sacraldotnet\sacraldotnet.Service\obj\Debug\net7.0\sacraldotnet.Service.dll
 E:\Projects\Sacral\dotnet_service\Application.API\SacralAI.Code.Scheduler\bin\Debug\Apps\1\1702\202310050252\sacraldotnet\sacraldotnet.Service\obj\Debug\net7.0\refint\sacraldotnet.Service.dll
 E:\Projects\Sacral\dotnet_service\Application.API\SacralAI.Code.Scheduler\bin\Debug\Apps\1\1702\202310050252\sacraldotnet\sacraldotnet.Service\obj\Debug\net7.0\sacraldotnet.Service.pdb
+D:\Amar\20231005_Debug\Apps\1\1712\202310062954\sacraldotnet\sacraldotnet.Service\obj\Debug\net7.0\sacraldotnet.Service.dll
+D:\Amar\20231005_Debug\Apps\1\1712\202310062954\sacraldotnet\sacraldotnet.Service\obj\Debug\net7.0\refint\sacraldotnet.Service.dll
+D:\Amar\20231005_Debug\Apps\1\1712\202310062954\sacraldotnet\sacraldotnet.Service\obj\Debug\net7.0\sacraldotnet.Service.pdb

@@ -1,145 +1,133 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Data;
-using System.Data.Common;
+using System.Data.SqlClient;
 using System.Threading.Tasks;
 using Npgsql;
 
-namespace sacraldotnet.Repository
+namespace sacraldotnet
 {
-    public class Repository<TEntity> : IRepository<TEntity> where TEntity : class
+    public class ReportConfigurationRepository : IReportConfigurationRepository
     {
-        private readonly string _connectionString;
+        private readonly string connectionString;
 
-        public Repository(string connectionString)
+        public ReportConfigurationRepository(string connectionString)
         {
-            _connectionString = connectionString;
+            this.connectionString = connectionString;
         }
 
-        public async Task<IEnumerable<TEntity>> GetAllAsync()
+        public async Task<List<ReportConfigurationModel>> GetAllAsync()
         {
-            using (var connection = GetOpenConnection())
+            using (var connection = new NpgsqlConnection(connectionString))
             {
-                var command = connection.CreateCommand();
-                command.CommandText = $"SELECT * FROM {GetTableName()}";
-                return await ReadEntitiesAsync(command);
-            }
-        }
+                await connection.OpenAsync();
 
-        public async Task<TEntity> GetByIdAsync(int id)
-        {
-            using (var connection = GetOpenConnection())
-            {
-                var command = connection.CreateCommand();
-                command.CommandText = $"SELECT * FROM {GetTableName()} WHERE Id = @Id";
-                command.Parameters.Add(CreateParameter("Id", id));
-                return await ReadEntityAsync(command);
-            }
-        }
-
-        public async Task<TEntity> AddAsync(TEntity entity)
-        {
-            using (var connection = GetOpenConnection())
-            {
-                var command = connection.CreateCommand();
-                command.CommandText = GetInsertCommandText();
-                AddEntityParameters(command, entity);
-                await command.ExecuteNonQueryAsync();
-                return entity;
-            }
-        }
-
-        public async Task<TEntity> UpdateAsync(TEntity entity)
-        {
-            using (var connection = GetOpenConnection())
-            {
-                var command = connection.CreateCommand();
-                command.CommandText = GetUpdateCommandText();
-                AddEntityParameters(command, entity);
-                await command.ExecuteNonQueryAsync();
-                return entity;
-            }
-        }
-
-        public async Task DeleteAsync(int id)
-        {
-            using (var connection = GetOpenConnection())
-            {
-                var command = connection.CreateCommand();
-                command.CommandText = $"DELETE FROM {GetTableName()} WHERE Id = @Id";
-                command.Parameters.Add(CreateParameter("Id", id));
-                await command.ExecuteNonQueryAsync();
-            }
-        }
-
-        private async Task<IEnumerable<TEntity>> ReadEntitiesAsync(DbCommand command)
-        {
-            var entities = new List<TEntity>();
-            using (var reader = await command.ExecuteReaderAsync())
-            {
-                while (await reader.ReadAsync())
+                using (var command = new NpgsqlCommand("SELECT * FROM ReportConfiguration", connection))
                 {
-                    var entity = Activator.CreateInstance<TEntity>();
-                    PopulateEntity(reader, entity);
-                    entities.Add(entity);
+                    using (var reader = await command.ExecuteReaderAsync())
+                    {
+                        var reportConfigurations = new List<ReportConfigurationModel>();
+
+                        while (await reader.ReadAsync())
+                        {
+                            var reportConfiguration = new ReportConfigurationModel
+                            {
+                                Id = reader.GetInt32(0),
+                                FileType = reader.GetString(1),
+                                Destination = reader.GetString(2),
+                                Frequency = reader.GetString(3)
+                            };
+
+                            reportConfigurations.Add(reportConfiguration);
+                        }
+
+                        return reportConfigurations;
+                    }
                 }
             }
-            return entities;
         }
 
-        private async Task<TEntity> ReadEntityAsync(DbCommand command)
+        public async Task<ReportConfigurationModel> GetByIdAsync(int id)
         {
-            using (var reader = await command.ExecuteReaderAsync())
+            using (var connection = new NpgsqlConnection(connectionString))
             {
-                if (await reader.ReadAsync())
+                await connection.OpenAsync();
+
+                using (var command = new NpgsqlCommand("SELECT * FROM ReportConfiguration WHERE Id = @id", connection))
                 {
-                    var entity = Activator.CreateInstance<TEntity>();
-                    PopulateEntity(reader, entity);
-                    return entity;
+                    command.Parameters.AddWithValue("@id", id);
+
+                    using (var reader = await command.ExecuteReaderAsync())
+                    {
+                        if (await reader.ReadAsync())
+                        {
+                            var reportConfiguration = new ReportConfigurationModel
+                            {
+                                Id = reader.GetInt32(0),
+                                FileType = reader.GetString(1),
+                                Destination = reader.GetString(2),
+                                Frequency = reader.GetString(3)
+                            };
+
+                            return reportConfiguration;
+                        }
+                    }
                 }
-                return null;
+            }
+
+            return null;
+        }
+
+        public async Task<int> CreateAsync(ReportConfigurationModel reportConfiguration)
+        {
+            using (var connection = new NpgsqlConnection(connectionString))
+            {
+                await connection.OpenAsync();
+
+                using (var command = new NpgsqlCommand("INSERT INTO ReportConfiguration (FileType, Destination, Frequency) VALUES (@fileType, @destination, @frequency) RETURNING Id", connection))
+                {
+                    command.Parameters.AddWithValue("@fileType", reportConfiguration.FileType);
+                    command.Parameters.AddWithValue("@destination", reportConfiguration.Destination);
+                    command.Parameters.AddWithValue("@frequency", reportConfiguration.Frequency);
+
+                    return (int)await command.ExecuteScalarAsync();
+                }
             }
         }
 
-        private void PopulateEntity(DbDataReader reader, TEntity entity)
+        public async Task<bool> UpdateAsync(ReportConfigurationModel reportConfiguration)
         {
-            // TODO: Implement logic to populate entity properties from reader columns
+            using (var connection = new NpgsqlConnection(connectionString))
+            {
+                await connection.OpenAsync();
+
+                using (var command = new NpgsqlCommand("UPDATE ReportConfiguration SET FileType = @fileType, Destination = @destination, Frequency = @frequency WHERE Id = @id", connection))
+                {
+                    command.Parameters.AddWithValue("@fileType", reportConfiguration.FileType);
+                    command.Parameters.AddWithValue("@destination", reportConfiguration.Destination);
+                    command.Parameters.AddWithValue("@frequency", reportConfiguration.Frequency);
+                    command.Parameters.AddWithValue("@id", reportConfiguration.Id);
+
+                    return await command.ExecuteNonQueryAsync() > 0;
+                }
+            }
         }
 
-        private void AddEntityParameters(DbCommand command, TEntity entity)
+        public async Task<bool> DeleteAsync(int id)
         {
-            // TODO: Implement logic to add parameters to the command based on entity properties
-        }
+            using (var connection = new NpgsqlConnection(connectionString))
+            {
+                await connection.OpenAsync();
 
-        private DbParameter CreateParameter(string name, object value)
-        {
-            var parameter = new NpgsqlParameter(name, value);
-            return parameter;
-        }
+                using (var command = new NpgsqlCommand("DELETE FROM ReportConfiguration WHERE Id = @id", connection))
+                {
+                    command.Parameters.AddWithValue("@id", id);
 
-        private string GetTableName()
-        {
-            // TODO: Implement logic to determine the table name based on TEntity type
-            return typeof(TEntity).Name;
-        }
-
-        private string GetInsertCommandText()
-        {
-            // TODO: Implement logic to generate the INSERT command text based on TEntity type
-            return "";
-        }
-
-        private string GetUpdateCommandText()
-        {
-            // TODO: Implement logic to generate the UPDATE command text based on TEntity type
-            return "";
-        }
-
-        private NpgsqlConnection GetOpenConnection()
-        {
-            var connection = new NpgsqlConnection(_connectionString);
-            connection.Open();
-            return connection;
+                    return await command.ExecuteNonQueryAsync() > 0;
+                }
+            }
         }
     }
+
+    // Add similar repository classes for other models (VendorModel, ReportFileModel, EmailAttachmentModel, etc.) here.
 }

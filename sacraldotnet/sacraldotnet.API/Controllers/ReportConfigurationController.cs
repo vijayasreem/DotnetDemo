@@ -2,38 +2,33 @@
 using Microsoft.AspNetCore.Mvc;
 using sacraldotnet.DTO;
 using sacraldotnet.Service;
+using System.Threading.Tasks;
 
 namespace sacraldotnet.API
 {
-    [ApiController]
     [Route("api/[controller]")]
+    [ApiController]
     public class ReportConfigurationController : ControllerBase
     {
-        private readonly IReportGenerator _reportGenerator;
-        private readonly ISchedulerService _schedulerService;
+        private readonly IReportConfigurationService _reportConfigurationService;
 
-        public ReportConfigurationController(IReportGenerator reportGenerator, ISchedulerService schedulerService)
+        public ReportConfigurationController(IReportConfigurationService reportConfigurationService)
         {
-            _reportGenerator = reportGenerator;
-            _schedulerService = schedulerService;
+            _reportConfigurationService = reportConfigurationService;
         }
 
         [HttpPost]
-        public async Task<IActionResult> ConfigureReportDelivery(ReportDeliveryConfigurationDto configurationDto)
+        public async Task<IActionResult> ConfigureReport([FromBody] ReportConfigurationDto reportConfiguration)
         {
-            // Validate the report delivery configuration
-            if (!configurationDto.ValidateDestination() || !configurationDto.ValidateDeliveryConfiguration())
+            try
             {
-                return BadRequest("Invalid report delivery configuration.");
+                await _reportConfigurationService.ConfigureReport(reportConfiguration.FileType, reportConfiguration.Destination, reportConfiguration.Frequency);
+                return Ok();
             }
-
-            // Generate the report based on the selected file type
-            await _reportGenerator.GenerateReport(configurationDto.FileType);
-
-            // Schedule the report generation
-            await _schedulerService.ScheduleReportGeneration();
-
-            return Ok("Report delivery configuration saved successfully.");
+            catch (Exception ex)
+            {
+                return StatusCode(500, ex.Message);
+            }
         }
     }
 }

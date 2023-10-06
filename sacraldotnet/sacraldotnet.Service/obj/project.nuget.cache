@@ -1,11 +1,11 @@
 {
   "version": 2,
-  "dgSpecHash": "hZrV2lUQRSFuCo+Q8q37GQcF4v/f1Sn+hrlcgMvt321N0mHmu6WEldgZsH7kBmzbPxhs/mJJEMxym7WKV0GUDA==",
+  "dgSpecHash": "RYtA8te/BpP8fGJe6LZ5uSgmTtPF5MxRGT7aDaVQ6PEZ5P5CW83NTx099pKsklspdyexuZ+F62t5zjg6cGKTZw==",
   "success": true,
-  "projectFilePath": "E:\\Projects\\Sacral\\dotnet_service\\Application.API\\SacralAI.Code.Scheduler\\bin\\Debug\\Apps\\1\\1702\\202310050252\\sacraldotnet\\sacraldotnet.Service\\sacraldotnet.Service.csproj",
+  "projectFilePath": "D:\\Amar\\20231005_Debug\\Apps\\1\\1712\\202310062954\\sacraldotnet\\sacraldotnet.Service\\sacraldotnet.Service.csproj",
   "expectedPackageFiles": [
-    "C:\\Users\\inoc\\.nuget\\packages\\microsoft.extensions.logging.abstractions\\6.0.0\\microsoft.extensions.logging.abstractions.6.0.0.nupkg.sha512",
-    "C:\\Users\\inoc\\.nuget\\packages\\npgsql\\7.0.6\\npgsql.7.0.6.nupkg.sha512"
+    "C:\\Users\\mmadipally\\.nuget\\packages\\microsoft.extensions.logging.abstractions\\6.0.0\\microsoft.extensions.logging.abstractions.6.0.0.nupkg.sha512",
+    "C:\\Users\\mmadipally\\.nuget\\packages\\npgsql\\7.0.6\\npgsql.7.0.6.nupkg.sha512"
   ],
   "logs": []
 }
